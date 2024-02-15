@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:attr="lang=${#locale.language == 'ar' ? 'ar' : 'en'}, dir=${#locale.language == 'ar' ? 'rtl' : 'ltr'}"
+      >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>RGA</title>
+    <meta name="description" content="" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=2"
+    />
+    <meta property="og:title" content="RGA" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta
+            http-equiv="Cache-Control"
+            content="no-cache, no-store, must-revalidate"
+    />
+    <link rel="preload" th:href="@{/images/logo.svg}" as="image" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+    <style>
+        body {
+            overflow: hidden;
+        }
+        body.dom-loaded {
+            overflow: auto;
+        }
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 999999;
+            -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            transition: all 1s cubic-bezier(0.23, 0.48, 0.26, 0.94) 0.2s;
+            background-color: #fff;
+        }
+
+        .loader:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent linear-gradient(134deg, #B89C17 0%, #2F6456 100%) 0% 0% no-repeat padding-box;
+            opacity: 0.1;
+        }
+        .loader .loader-block {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+
+            transition: all 0.6s cubic-bezier(0.23, 0.48, 0.26, 0.94);
+        }
+
+        .loader .loader-block .loader-img {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 400px;
+            height: auto;
+        }
+        .loader .loader-block .loader-img img {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .dom-loaded .loader {
+            -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+            pointer-events: none;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .loader .loader-block .loader-img {
+                max-width: 80vw;
+            }
+        }
+
+        /* Pagination container */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Pagination link styles */
+        .pagination a {
+            color: #007bff; /* Link color */
+            text-decoration: none;
+            background-color: #fff; /* Background color */
+            border: 1px solid #ddd; /* Border color */
+            padding: 5px 10px; /* Padding around the link */
+            margin: 0 5px; /* Spacing between links */
+            border-radius: 3px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        /* Hover state for pagination links */
+        .pagination a:hover {
+            background-color: #007bff; /* Background color on hover */
+            color: #fff; /* Text color on hover */
+        }
+
+        /* Active state for the current page */
+        .pagination .active a {
+            background-color: #007bff; /* Background color for the current page *\/
+      color: #fff; /* Text color for the current page */
+            border: 1px solid #007bff; /* Border color for the current page */
+        }
+
+        /* Disabled state for previous and next links */
+        .pagination .disabled a {
+            color: #ccc; /* Text color for disabled links */
+            pointer-events: none; /* Prevent interaction with disabled links */
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/styles/page.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body class="innerPage submission-listPage">
+<!-- loader-->
+<div class="loader" data-loader>
+    <div class="loader-block">
+        <div class="loader-img">
+            <img th:src="@{/images/logo.svg}" alt="" />
+        </div>
+    </div>
+</div>
+<!-- loader-->
+<div class="wrapper flex flex-wrap">
+
+    <div class="sidebar h-auto md:h-screen sticky top-0 min-w-[100px]  pt-5  pb-10  flex md:flex-col place-content-between w-full md:w-auto  " >
+
+        <ul class="side-bar-menu flex gap-7 flex-row md:flex-col w-full items-center">
+            <li class="side-logo flex flex-col align-middle  items-center gap-2 w-full mb-8">
+                <img class="h-[4em]" th:src="@{/images/rga-logo-image.svg}" />
+
+            </li>
+            <li th:if="${userRole == 'HR'}" class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  ">
+
+                <a th:href="@{/users-list}"    class="flex flex-col gap-2">
+                    <img th:src="@{/images/icon-profile.svg}">
+                    <span th:text="#{menu.users}"/></a>
+            </li>
+            <li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item p-3 ">
+
+                <a th:href="@{/apply}" class="flex flex-col gap-2">
+                    <img th:src="@{/images/icon-submit.svg}">
+                    <span th:text="#{menu.submit}"/> </a>
+            </li>
+            <li th:if="${userRole == 'HR'}" class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item p-3 active ">
+
+                <a th:href="@{submission-list}" class="flex flex-col gap-2">
+                    <img th:src="@{/images/icon-submit.svg}">
+                    <span th:text="#{menu.submission}"/> </a>
+            </li>
+
+        </ul>
+        <ul class="logout-btn flex gap-7 flex-col w-full items-center">
+            <!--<li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  ">
+f
+                <a href="login.html"  class="flex flex-col gap-2">
+                    <img  src="../images/icon-logout.svg" />
+                    Log out </a>
+            </li>-->
+            <li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  ">
+
+                <a th:href="@{/profile}"  class="flex flex-col gap-2">
+                    <img th:src="@{/images/icon-profile.svg}">
+                    <span th:text="#{menu.profile}"/></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="flex-1 pe-8">
+        <header class="header flex w-full m-3 mx-0 min-h-[4em]   items-center justify-between">
+            <div class="heading-text flex h-full  align-bottom  items-start">
+                <h2 class="font-medium text-[2rem]" th:text="#{menu.submission}">Submissions</h2>
+            </div>
+            <div class="head-settings flex h-full  align-bottom  items-start">
+                <ul class="flex header-settings gap-4  ">
+                    <li class="flex items-center  ">
+                        <a  title="Register New Profile" th:href="@{/register}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium"> <i class="fas fa-user-plus"></i>
+                        </a>
+                    </li>
+                    <li class="flex items-center  ">
+                        <a th:href="@{/toggle-language}" th:text="${#locale.language == 'ar' ? 'EN' : 'ع'}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">ع</a>
+                    </li>
+                    <li class="flex items-center  ">
+                        <a th:href="@{/logout}" class="notification  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full">
+                            <img  th:src="@{/images/icon-logout.svg}" />
+                            <!--                            <span class="notification-no"></span>-->
+                        </a>
+                    </li>
+                    <li class="flex items-center">
+                        <a th:title="${fname}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">U</a>
+
+                    </li>
+                </ul>
+            </div>
+        </header>      <main class="flex-1">
+        <div class="mainContent bg-yellow-light p-4">
+            <div class="flex     justify-center  min-h-screen   p-5 ">
+                <div class="flex flex-col w-full bg-white  p-5 rounded-[20px] gap-3 ">
+                    <div class="flex gap-3 justify-between">
+
+                        <div class="left-align">
+                            <div class="flex gap-5 align-center">
+                                <h2><span th:text="${userPage.getTotalElements()}"/> Submissions</h2>
+                                <a th:href="@{/downloadSubmissions}" target="_blank"><i class="fas fa-file-excel fa-l"></i> Download
+                                </a>
+                            </div>
+
+                        </div>
+                        <!--            <form class="form-v3 search-box">-->
+                        <div class="form-v3 search-box">
+                            <div class="input-field active flex">
+
+                                <form th:action="@{/submission-list}" method="get">
+
+                                    <input placeholder="search" type="text" name="search" id="search"  />
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <!--            </form>-->
+                    </div>
+
+
+                    <div class="hr-view table w-full text-left bg-white common-table">
+                        <div class="table-row head-row ">
+                            <div class="table-cell "><span th:text="#{user.identification}" /></div>
+                            <div class="table-cell"><span th:text="#{login.fullname}" /></div>
+                            <div class="table-cell"><span th:text="#{user.email}" /></div>
+                            <div class="table-cell"><span th:text="#{user.position}" /></div>
+                            <div class="table-cell"><span th:text="#{user.status}" /></div>
+                        </div>
+                        <div class="table-row item-rows" th:each="employeeInfo : ${userPage.content}" data-employee-info="${employeeInfo}">
+                            <div class="table-cell" data-title="Emp Code"><p th:text="${employeeInfo.identification}"></p></div>
+                            <div class="table-cell" data-title="Name of the employee"><p th:text="${employeeInfo.fname}"></p></div>
+                            <div class="table-cell" data-title="Department"><p th:text="${employeeInfo.email}"></p></div>
+                            <div class="table-cell" data-title="Designation"><p th:text="${employeeInfo.position}"></p></div>
+
+                            <div class="table-cell">
+<!--
+                                <a  data-fancybox data-src="#modal-profile"><img src="../images/icon-view.svg" ></a>
+-->
+                                <a th:href="@{/view(empId=${employeeInfo.username})}"><img th:src="@{/images/icon-view.svg}" ></a>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+                    <!-- Generate paging links -->
+
+                    <div class="pagination" th:if="${userPage.getTotalElements()>0}">
+                        <span th:if="${userPage.hasPrevious()}">
+                           <a th:attr="href=@{'/submission-list?page=' + ${userPage.number - 1}}">Previous</a>
+
+                        </span>
+                                    <span th:each="page : ${#numbers.sequence(0, userPage.totalPages-1)}">
+                            <a th:if="${userPage.number == page}" th:text="${page+1}"></a>
+                            <a th:unless="${userPage.number == page}" th:href="@{'/submission-list?page=' + ${page}}" th:text="${page+1}"></a>
+                        </span>
+                                    <span th:if="${userPage.hasNext()}">
+                     <a th:attr="href=@{'/submission-list?page=' + ${userPage.number + 1}}">Next</a>
+
+
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+    </div>
+
+</div>
+
+<div class="profile-popup  bg-yellow-light" id="modal-profile" style="display: none;">
+    <div class="profile-popup-view registration-form form-v3 flex tab-section ">
+        <div class="side-tab flex pt-10 w-[20%] flex-col justify-start gap-20">
+            <ul class="flex gap-8 flex-col brand-color tab-head">
+                <li class="font-bold active">
+                    <a href="#personal-data">Personal Data</a></li>
+                <li class="font-bold">
+                    <a href="#address">Address</a></li>
+                <li class="font-bold">
+                    <a href="#qualification">Qualification</a></li>
+                <li class="font-bold">
+                    <a href="#additional-documents">Additional Documents</a></li>
+                <li class="font-bold">
+                    <a href="#previous-experiences">Previous Experiences</a></li>
+                <li class="font-bold">
+                    <a href="#update-password">Update Password</a>Update Password</li>
+            </ul>
+
+            <div class="profile-circle flex aspect-square w-[80%]">
+                <div class="over-circle"></div>
+                <div class="profile-img flex rounded-full  w-[80%] h-[80%] m-auto  overflow-hidden bg-yellow-light">
+
+                    <img th:src="@{/images/profile.png}">
+                </div>
+            </div>
+
+        </div>
+
+        <section class="tab-item  p-10 bg-white flex-1 rounded-[10px] active" id="personal-data">
+
+            <div class="form-wrapper">
+                <div class="row gap-1 input_box">
+                    <div class="input-field">
+                        <label for="fname">Full Name</label>
+                        <input  type="text" id="fname" placeholder="Enter your full name" name="fname" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="identification">National Identification Number</label>
+                        <input id="identification" name="identification" type="text" class="required" placeholder="Enter ID Number">
+                    </div>
+                    <div class="input-field">
+                        <label for="dob">Date of Birth</label>
+                        <input id="dob" name="dob" placeholder="Choose Date of Birth" type="date" class="required">
+                    </div>
+
+                    <div class="input-field radio-buttons">
+                        <label for="gender">Gender</label>
+                        <label>
+                            <input class="filled-in radio" name="gender"  value="male" type="radio" />
+                            <span> Male</span>
+                        </label>
+                        <label>
+                            <input class="filled-in radio" name="gender"  value="female" type="radio" />
+                            <span> Female</span>
+                        </label>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="nationality">
+                            Nationality</label>
+                        <select name="nationality" id="nationality">
+                            <option value="" disabled  selected>Enter Nationality</option>
+                            <option value="sa">Saudi Arabia</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="martial-status">Martail Status</label>
+                        <select name="martial-status">
+                            <option  value="" disabled  selected>Choose Martail Status</option>
+                            <option value="married">Married</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="single">Single</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="position">Current Position</label>
+                        <input id="position" placeholder="Enter your current position" name="position" type="text" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="contract">Type of Contract</label>
+                        <input id="contract" name="contract" placeholder="Enter your type of contract"  type="text" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="date-contract">The start date of the current contract</label>
+                        <input id="date-contract" placeholder="Choose Date" name="date-contract" type="date" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="appointment-date">Date of appointment in the country</label>
+                        <input id="appointment-date" placeholder="Choose Date" name="appointment-date" type="date" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="authority-date">Date of appointment to the Authority</label>
+                        <input id="authority-date" placeholder="Choose Date" name="authority-date" type="date" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="promotion-date">Date of last promotion</label>
+                        <input id="promotion-date" placeholder="Choose Date" name="promotion-date" type="date" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="current-position-date">Date of filling the current position</label>
+                        <input id="current-position-date" placeholder="Choose Date" name="current-position-date" type="date" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="rank">Rank</label>
+                        <input id="rank" placeholder="Enter Rank" name="rank" type="text" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="class">Class</label>
+                        <input id="class" placeholder="Enter Class" name="class" type="text" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="actual-employer">Actual Employer</label>
+                        <input id="actual-employer" placeholder="Enter Actual Employer" name="actual-employer" type="text" class="required">
+                    </div>
+
+                    <div class="input-field full_">
+                        <label for="work-location">Work Location</label>
+                        <textarea name="work-location" placeholder="Enter Work Location" class="required"></textarea>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </section>
+
+        <section class="tab-item   p-10 bg-white flex-1 rounded-[10px]" id="address">
+
+            <div class="form-wrapper">
+                <div class="row gap-1 input_box">
+                    <div class="input-field">
+                        <label for="country">Country</label>
+                        <select name="country" id="country">
+                            <option value="" disabled  selected>Enter Nationality</option>
+                            <option value="sa">Saudi Arabia</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="city" >City</label>
+                        <input id="city" name="city" type="text" class="required" placeholder="City">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="phone-no">phone number</label>
+                        <input id="phone-no" name="phone-no" type="text" class="required" placeholder="phone number">
+                    </div>
+
+
+
+                    <div class="input-field">
+                        <label for="email">E-mail</label>
+                        <input id="email" name="email" type="email" class="required" placeholder="E-mail">
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </section>
+        <section class="tab-item   p-10 bg-white flex-1 rounded-[10px]" id="qualification">
+
+            <div class="form-wrapper">
+
+                <div class="row gap-1 input_box" id="certificate_group">
+                    <div class="input-field">
+                        <label for="certificate-name">
+                            Certificate name</label>
+                        <input id="certificate-name" name="certificate-name" type="text" placeholder="Certificate name" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="specialization">
+                            Specialization</label>
+                        <input id="specialization" name="specialization" placeholder="Specialization" type="text" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="subspecialty">
+                            Subspecialty</label>
+                        <input id="subspecialty" name="subspecialty" type="text" placeholder="Subspecialty" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="hand-graduation">
+                            Hand graduation</label>
+                        <input id="hand-graduation" name="hand-graduation"  placeholder="Hand graduation" type="text" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="where-to-get">
+                            Where to get it</label>
+                        <input id="where-to-get" name="where-to-get"  placeholder="Where to get it" type="text" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="where-to-get">
+                            Date obtained (beginning)</label>
+                        <input id="date-obtained" name="date-obtained"    type="date" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="date-obtained-end">
+                            Date obtained (end)</label>
+                        <input id="date-obtained-end" name="date-obtained-end"    type="date" class="required">
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+        <section class="tab-item   p-10 bg-white flex-1 rounded-[10px]" id="additional-documents">
+
+            <div class="form-wrapper">
+
+                <div class="row gap-1 input_box">
+
+                    <div class="input-field">
+                        <label for="where-to-get">
+                            Professional certificate</label>
+                        <input id="professional-certificate" name="professional-certificate" placeholder="Professional certificate"    type="text" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="where-to-get">
+                            Release Date</label>
+                        <input id="release-date" name="release-date"     type="date" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="expiry">
+                            Expiry</label>
+                        <select name="expiry" id="expiry">
+                            <option value="" disabled  selected>Select Expiry</option>
+                            <option value="no-expiry">No expiry date</option>
+                            <option value="have-expiry">Have expiry date</option>
+                        </select>
+
+                    </div>
+                    <div class="input-field hidden " id="expiry-date-value">
+                        <label for="expiry-date">
+                            Expiry date</label>
+                        <input id="expiry-date" name="expiry-date"     type="date" class="required">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="electronic_link">
+                            Electronic link</label>
+                        <input id="electronic_link" name="electronic_link"     type="url" class="required">
+                    </div>
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+        </section>
+
+        <section class="tab-item   p-10 bg-white flex-1 rounded-[10px]" id="previous-experiences">
+
+            <div class="form-wrapper">
+
+                <div class="row gap-1 input_box" id="experiences_group">
+                    <div class="input-field">
+                        <label for="name-entity">
+                            Name of the entity</label>
+                        <input id="name-entity" name="name-entity" type="text" placeholder="Name of the entity" class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="work-starting-date">
+                            Work starting date</label>
+                        <input id="work-starting-date" name="userName" type="date"   class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="end-date-employment">
+                            End date of employment</label>
+                        <input id="end-date-employment" name="end-date-employment" type="date"   class="required">
+                    </div>
+                    <div class="input-field">
+                        <label for="job-title">
+                            Job title</label>
+                        <input id="job-title" name="job-title" type="text" placeholder="Job title" class="required">
+                    </div>
+                </div>
+
+
+            </div>
+
+        </section>
+
+        <section class="tab-item   p-10 bg-white flex-1 rounded-[10px]" id="update-password">
+
+            <div class="form-wrapper">
+                <div class="row gap-1 input_box">
+                    <div class="input-field active">
+                        <label for="password" class="">Password</label>
+                        <input type="password"  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"  name="password" />
+
+                    </div>
+
+                    <div class="input-field active">
+                        <label for="password" class="">Re-enter Password</label>
+                        <input type="password"  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"  name="password" />
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+
+    </div>
+</div>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+></script>
+<script src="
+https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+"></script>
+<script th:src="@{/scripts/min/page_plugins.js}"></script>
+<script  th:src="@{/scripts/vendor/swiper-bundle.min.js}"></script>
+<script  th:src="@{/scripts/vendor/jquery.selectric.js}"></script>
+<script  th:src="@{/scripts/min/page.js}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<script>
+    $('select').selectric({ disableOnMobile: false, nativeOnMobile: false });
+
+    $('.tab-head li a').on( "click", function() {
+        var id=$(this).attr('href');
+        $('.tab-head li').removeClass("active");
+
+        $('.tab-section .tab-item').removeClass("active");
+
+        $(this).parent("li").addClass("active");
+        $('.tab-section').find(id).addClass("active");
+        //your code
+        //   var element = $(this); // to get clicked element
+    });
+
+    $('[data-fancybox]').fancybox({
+        // modal: true,
+        touch: false,
+        backFocus : false,
+        autoFocus: false,
+    });
+</script>
+
+
+</body>
+</html>

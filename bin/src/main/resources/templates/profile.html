@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:attr="lang=${#locale.language == 'ar' ? 'ar' : 'en'}, dir=${#locale.language == 'ar' ? 'rtl' : 'ltr'}"
+>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>RGA</title>
+  <meta name="description" content="" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=2"
+  />
+  <meta property="og:title" content="RGA" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+  <meta
+          http-equiv="Cache-Control"
+          content="no-cache, no-store, must-revalidate"
+  />
+  <link rel="preload" th:href="@{/images/logo.svg}" as="image" />
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+  <style>
+    body {
+      overflow: hidden;
+    }
+    body.dom-loaded {
+      overflow: auto;
+    }
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 999999;
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      transition: all 1s cubic-bezier(0.23, 0.48, 0.26, 0.94) 0.2s;
+      background-color: #fff;
+    }
+
+    .loader:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent linear-gradient(134deg, #B89C17 0%, #2F6456 100%) 0% 0% no-repeat padding-box;
+      opacity: 0.1;
+    }
+    .loader .loader-block {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      transform-origin: center;
+
+      transition: all 0.6s cubic-bezier(0.23, 0.48, 0.26, 0.94);
+    }
+
+    .loader .loader-block .loader-img {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 400px;
+      height: auto;
+    }
+    .loader .loader-block .loader-img img {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .dom-loaded .loader {
+      -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      pointer-events: none;
+    }
+    .error-message {
+      display: inline-block; /* Display the error message next to the button */
+      margin-left: 10px; /* Adjust the spacing between the button and the error message */
+      color: red; /* Set the text color for error messages */
+      font-size: 14px; /* Adjust the font size as needed */
+    }
+    @media only screen and (max-width: 767px) {
+      .loader .loader-block .loader-img {
+        max-width: 80vw;
+      }
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen" th:href="@{/styles/page.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+</head>
+<body class="innerPage profilePage">
+<!-- loader-->
+<div class="loader" data-loader>
+  <div class="loader-block">
+    <div class="loader-img">
+      <img th:src="@{/images/logo.svg}" alt="" />
+    </div>
+  </div>
+</div>
+<!-- loader-->
+<div class="wrapper flex flex-wrap">
+
+  <div class="sidebar h-auto md:h-screen sticky top-0 min-w-[100px]  pt-5  pb-10  flex md:flex-col place-content-between w-full md:w-auto  " >
+
+    <ul class="side-bar-menu flex gap-7 flex-row md:flex-col w-full items-center">
+      <li class="side-logo flex flex-col align-middle  items-center gap-2 w-full mb-8">
+        <img class="h-[4em]" th:src="@{/images/rga-logo-image.svg}" />
+
+      </li>
+      <li th:if="${userRole == 'HR'}" class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  ">
+
+        <a th:href="@{/users-list}"    class="flex flex-col gap-2">
+          <img th:src="@{/images/icon-profile.svg}">
+          <span th:text="#{menu.users}"/></a>
+      </li>
+      <li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item p-3 ">
+
+        <a th:href="@{/apply}" class="flex flex-col gap-2">
+          <img th:src="@{/images/icon-submit.svg}">
+          <span th:text="#{menu.submit}"/> </a>
+      </li>
+      <li th:if="${userRole == 'HR'}" class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item p-3 ">
+
+        <a th:href="@{/submission-list}" class="flex flex-col gap-2">
+          <img th:src="@{/images/icon-submit.svg}">
+          <span th:text="#{menu.submission}"/> </a>
+      </li>
+
+    </ul>
+    <ul class="logout-btn flex gap-7 flex-col w-full items-center">
+      <!--<li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  ">
+
+          <a href="login.html"  class="flex flex-col gap-2">
+              <img  src="../images/icon-logout.svg" />
+              Log out </a>
+      </li>-->
+      <li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  active">
+
+        <a th:href="@{/profile}"  class="flex flex-col gap-2 active">
+          <img th:src="@{/images/icon-profile.svg}">
+          <span th:text="#{menu.profile}"/></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex-1 pe-8">
+    <header class="header flex w-full m-3 mx-0 min-h-[4em]   items-center justify-between">
+      <div class="heading-text flex h-full  align-bottom  items-start">
+        <h2 class="font-medium text-[2rem]" th:text="#{menu.profile}">Profile</h2>
+      </div>
+      <div class="head-settings flex h-full  align-bottom  items-start">
+        <ul class="flex header-settings gap-4  ">
+          <li class="flex items-center  ">
+            <a  title="Register New Profile" th:href="@{/register}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium"> <i class="fas fa-user-plus"></i>
+            </a>
+          </li>
+          <li class="flex items-center  ">
+            <a th:href="@{/toggle-language}" th:text="${#locale.language == 'ar' ? 'EN' : 'ع'}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">ع</a>
+          </li>
+          <li class="flex items-center  ">
+            <a th:href="@{/logout}" class="notification  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full">
+              <img  th:src="@{/images/icon-logout.svg}" />
+              <!--                            <span class="notification-no"></span>-->
+            </a>
+          </li>
+          <li class="flex items-center">
+
+            <a th:title="${employeeInfo.fname}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">U</a>
+
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex-1">
+    <div class="mainContent bg-yellow-light p-4">
+      <div class="flex     justify-center  min-h-screen    ">
+        <div class="registration-form form-v3">
+
+          <form   th:object="${employeeInfo}"   th:action="@{/profile}" method="post" id="profile-form" >
+
+            <section class="  p-10 bg-white">
+
+              <div class="form-wrapper">
+                <div class="row gap-1 input_box">
+                  <div class="input-field">
+                    <label for="fname" th:text="#{login.fullname}">Full Name</label>
+                    <input id="fname" placeholder="Enter your full name" name="fname" th:field="*{fname}"  type="text" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="identification" th:text="#{user.identification}">National Identification Number</label>
+                    <input id="identification" name="identification" type="number" th:field="*{identification}"  class="required" placeholder="Enter ID Number" minlength="10" maxlength="10" >
+                  </div>
+                  <div class="input-field">
+                    <label for="dob" th:text="#{user.dob}">Date of Birth</label>
+                    <input id="dob" name="dob" th:field="*{dob}"  placeholder="Choose Date of Birth" type="date" class="required">
+                  </div>
+
+                  <div class="input-field radio-buttons">
+
+                    <label for="gender" th:text="#{user.gender}">Gender</label>
+                    <label>
+                      <input class="filled-in radio" name="gender" th:field="*{gender}"  value="1" type="radio" />
+                      <span th:text="#{user.gender.male}"> Male</span>
+                    </label>
+                    <label>
+                      <input class="filled-in radio" name="gender" th:field="*{gender}"   value="2" type="radio" />
+                      <span th:text="#{user.gender.female}"> Female</span>
+                    </label>
+                  </div>
+
+                  <div class="input-field">
+                    <label for="martial-status" th:text="#{user.marital}">Marital Status</label>
+                    <select name="martial-status" id="martial-status" th:field="*{martial}" >
+                      <option value="">Choose Martail Status</option>
+                      <option value="married">Married</option>
+                      <option value="divorced">Divorced</option>
+                      <option value="single">Single</option>
+                    </select>
+                  </div>
+                  <div class="input-field">
+                    <label for="position" th:text="#{user.position}">Current Position</label>
+                    <input id="position"  th:field="*{position}"  placeholder="Enter your current position" name="position" type="text" class="required">
+                  </div>
+
+                  <div class="input-field active">
+                    <label for="password" class=""  th:text="#{login.password}">Password</label>
+                    <input type="password" th:field="*{password}"  minlength="8" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"  id="password" name="password" />
+
+                  </div>
+
+                  <div class="input-field active">
+                    <label for="repassword" class="" th:text="#{login.reenterPassword}">Re-enter Password</label>
+                    <input type="password" minlength="8"  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" id="repassword" name="repassword" />
+                  </div>
+
+                  <div class="error-message" th:if="${passwordError}">
+                    <span th:text="${passwordError}"></span>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+              <div class="actions clearfix">
+                <ul role="menu" aria-label="Pagination">
+
+                  <li  ><a href="#"  class="border" id="resetForm" th:text="#{form.cancel}">Cancel</a>
+                  </li>
+                  <li  ><a  href="#" onclick="return updateProfile();" th:text="#{form.submit}">Submit</a></li></ul>
+              </div>
+            </section>
+
+          </form>
+
+        </div>
+
+
+      </div>
+    </div>
+  </main>
+  </div>
+
+</div>
+<div id="confirmation-dialog" title="Confirmation" style="display: none;">
+  <p>Record has been successfully created.</p>
+</div>
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+></script>
+<script src="
+https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+"></script>
+<script th:src="@{/scripts/min/page_plugins.js}"></script>
+<script  th:src="@{/scripts/vendor/swiper-bundle.min.js}"></script>
+<script  th:src="@{/scripts/vendor/jquery.selectric.js}"></script>
+<script  th:src="@{/scripts/min/page.js}"></script>
+<script  th:src="@{/scripts/vendor/jquery.validate.js}"></script>
+
+<script>
+  $('select').selectric({ disableOnMobile: false, nativeOnMobile: false });
+</script>
+<script>
+  function updateProfile(){
+    var res = $('#profile-form').valid();
+    if(res)
+      $('#profile-form').submit();
+    return res;
+  }
+  $(document).ready(function() {
+    var form = $('#profile-form');
+
+    // Click event for the reset link
+    $('#resetForm').on('click', function (e) {
+      //e.preventDefault(); // Prevent the link from navigating
+
+      $('#profile-form')[0].reset(); // Reset the form
+    });
+    form.validate({
+      rules: {
+        'martial-status': {
+          required: true,
+        },
+        gender: {
+          required: true,
+        },
+        /*country: {
+            required: true,
+        },*/
+
+      },
+      messages: {
+
+
+      },
+    });
+    form.submit(function() {
+      // Check if the form is valid
+      return form.valid();
+      /* if ($('#register-form').valid()) {
+           // The form is valid, you can proceed with your submit action.
+       } else {
+           // The form is not valid, handle the validation errors or prevent the submission.
+           // For example, you can display error messages or return false to prevent submission.
+       }*/
+    });
+  });
+
+
+</script>
+
+</body>
+</html>

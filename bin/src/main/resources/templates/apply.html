@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:attr="lang=${#locale.language == 'ar' ? 'ar' : 'en'}, dir=${#locale.language == 'ar' ? 'rtl' : 'ltr'}"
+>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>RGA</title>
+  <meta name="description" content="" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=2"
+  />
+  <meta property="og:title" content="RGA" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+  <meta
+          http-equiv="Cache-Control"
+          content="no-cache, no-store, must-revalidate"
+  />
+  <link rel="preload" th:href="@{/images/logo.svg}" as="image" />
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+  <style>
+    body {
+      overflow: hidden;
+    }
+    body.dom-loaded {
+      overflow: auto;
+    }
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 999999;
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      transition: all 1s cubic-bezier(0.23, 0.48, 0.26, 0.94) 0.2s;
+      background-color: #fff;
+    }
+
+    .loader:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent linear-gradient(134deg, #B89C17 0%, #2F6456 100%) 0% 0% no-repeat padding-box;
+      opacity: 0.1;
+    }
+    .loader .loader-block {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      transform-origin: center;
+
+      transition: all 0.6s cubic-bezier(0.23, 0.48, 0.26, 0.94);
+    }
+
+    .loader .loader-block .loader-img {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 400px;
+      height: auto;
+    }
+    .loader .loader-block .loader-img img {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .dom-loaded .loader {
+      -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      pointer-events: none;
+    }
+
+    @media only screen and (max-width: 767px) {
+      .loader .loader-block .loader-img {
+        max-width: 80vw;
+      }
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen" th:href="@{/styles/page.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script>
+    var exp_incr=0;
+    var qua_incr=0;
+  </script>
+</head>
+<body class="innerPage applyPage">
+<!-- loader-->
+<div class="loader" data-loader>
+  <div class="loader-block">
+    <div class="loader-img">
+      <img th:src="@{/images/logo.svg}" alt="" />
+    </div>
+  </div>
+</div>
+<!-- loader-->
+<div class="wrapper flex flex-wrap">
+
+
+  <div class="sidebar h-auto md:h-screen sticky top-0 min-w-[100px]  pt-5  pb-10  flex md:flex-col place-content-between w-full md:w-auto  " >
+
+    <ul class="side-bar-menu flex gap-7 flex-row md:flex-col w-full items-center">
+      <li class="side-logo flex flex-col align-middle  items-center gap-2 w-full mb-8">
+        <img class="h-[4em]" th:src="@{/images/rga-logo-image.svg}" />
+
+      </li>
+      <li th:if="${userRole == 'HR'}" class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3 ">
+
+        <a th:href="@{/users-list}"    class="flex flex-col gap-2">
+          <img th:src="@{/images/icon-profile.svg}">
+          <span th:text="#{menu.users}"/></a>
+      </li>
+      <li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item p-3  active">
+
+        <a th:href="@{/apply}" class="flex flex-col gap-2">
+          <img th:src="@{/images/icon-submit.svg}">
+          <span th:text="#{menu.submit}"/> </a>
+      </li>
+      <li th:if="${userRole == 'HR'}" class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item p-3  ">
+
+        <a th:href="@{/submission-list}" class="flex flex-col gap-2">
+          <img th:src="@{/images/icon-submit.svg}">
+          <span th:text="#{menu.submission}"/> </a>
+      </li>
+
+    </ul>
+    <ul class="logout-btn flex gap-7 flex-col w-full items-center">
+      <!--<li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  ">
+
+          <a href="login.html"  class="flex flex-col gap-2">
+              <img  src="../images/icon-logout.svg" />
+              Log out </a>
+      </li>-->
+      <li class="flex flex-col align-middle  items-center gap-2 w-full s-menu menu-item  p-3  ">
+
+        <a th:href="@{/profile}"  class="flex flex-col gap-2">
+          <img th:src="@{/images/icon-profile.svg}">
+          <span th:text="#{menu.profile}"/></a>
+      </li>
+    </ul>
+  </div>
+  <div class="flex-1 pe-8">
+    <header class="header flex w-full m-3 mx-0 min-h-[4em]   items-center justify-between">
+      <div class="heading-text flex h-full  align-bottom  items-start">
+        <h2 class="font-medium text-[2rem]" th:text="#{menu.submit}">Submit</h2>
+      </div>
+      <div class="head-settings flex h-full  align-bottom  items-start">
+        <ul class="flex header-settings gap-4  ">
+          <li class="flex items-center  ">
+            <a  title="Register New Profile" th:href="@{/register}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium"> <i class="fas fa-user-plus"></i>
+            </a>
+          </li>
+          <li class="flex items-center  ">
+            <a th:href="@{/toggle-language}" th:text="${#locale.language == 'ar' ? 'EN' : 'ع'}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">ع</a>
+          </li>
+          <li class="flex items-center  ">
+            <a th:href="@{/logout}" class="notification  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full">
+              <img  th:src="@{/images/icon-logout.svg}" />
+              <!--                            <span class="notification-no"></span>-->
+            </a>
+          </li>
+          <li class="flex items-center">
+            <a th:title="${employeeInfo.fname}" class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">U</a>
+          </li>
+        </ul>
+      </div>
+    </header>      <main class="flex-1">
+    <div class="mainContent bg-yellow-light p-4">
+      <div class="flex     justify-center  min-h-screen    ">
+        <div class="registration-form form-v3">
+          <form id="apply-form" th:object="${employeeInfo}" th:action="@{/apply}"  method="post" enctype="multipart/form-data">
+             <input type="hidden" th:field="*{id}" id="userId" name="userId">
+            <input type="hidden" th:value="${employeeInfo}" id="userObject" name="userObject">
+
+            <h3>Personal Data</h3>
+            <section>
+
+              <div class="form-wrapper">
+                <div class="row gap-1 input_box">
+                  <div class="input-field">
+                    <label for="fname" th:text="#{login.fullname}">Full Name</label>
+                    <input  type="text" id="fname" placeholder="Enter your full name" th:field="*{fname}" name="fname" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="identification" th:text="#{user.identification}">National Identification Number</label>
+                    <input id="identification" name="identification" th:field="*{identification}" type="number" class="required" placeholder="Enter ID Number" minlength="10" maxlength="10">
+                  </div>
+                  <div class="input-field">
+                    <label for="dob" th:text="#{user.dob}">Date of Birth</label>
+                    <input id="dob" name="dob"  th:field="*{dob}" placeholder="Choose Date of Birth" type="date" class="required">
+                  </div>
+
+                  <div class="input-field radio-buttons">
+                    <label for="gender" th:text="#{user.gender}">Gender</label>
+                    <label>
+                      <input class="filled-in radio" name="gender" th:field="*{gender}"  value="1" type="radio" />
+                      <span th:text="#{user.gender.male}"> Male</span>
+
+                    </label>
+                    <label>
+                      <input class="filled-in radio" name="gender"  th:field="*{gender}"  value="2" type="radio" />
+                      <span th:text="#{user.gender.female}"> Female</span>
+                    </label>
+                  </div>
+
+
+                  <div class="input-field">
+                    <label for="martial-status" th:text="#{user.marital}">Marital Status</label>
+                    <select name="martial-status" id="martial-status" th:field="*{martial}">
+                      <option  value="" disabled  selected>Choose Martail Status</option>
+                      <option value="married">Married</option>
+                      <option value="divorced">Divorced</option>
+                      <option value="single">Single</option>
+                    </select>
+                  </div>
+
+                  <div class="input-field">
+                    <label for="position" th:text="#{user.position}">Current Position</label>
+                    <input id="position" th:field="*{position}" placeholder="Enter your current position" name="position" type="text" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="contract" th:text="#{user.contract}">Type of Contract</label>
+                    <input id="contract" name="contract"  th:field="*{contract}" placeholder="Enter your type of contract"  type="text" class="required">
+                  </div>
+
+                  <div class="input-field">
+                    <label for="date_contract" th:text="#{user.cate_contract}">The start date of the current contract</label>
+                    <input id="date_contract" placeholder="Choose Date" th:field="*{date_contract}" name="date_contract" type="date" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="appointment_date" th:text="#{user.appointment_date}">Date of appointment in the country</label>
+                    <input id="appointment_date" placeholder="Choose Date" name="appointment_date" th:field="*{appointment_date}"  type="date" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="authority_date" th:text="#{user.authority_date}">Date of appointment to the Authority</label>
+                    <input id="authority_date" placeholder="Choose Date" name="authority_date" th:field="*{authority_date}" type="date" class="required">
+                  </div>
+
+                  <div class="input-field">
+                    <label for="promotion_date" th:text="#{user.promotion_date}">Date of last promotion</label>
+                    <input id="promotion_date" placeholder="Choose Date" name="promotion_date" th:field="*{promotion_date}" type="date" class="required">
+                  </div>
+
+
+
+                  <div class="input-field">
+                    <label for="rank" th:text="#{user.rank}">Rank</label>
+                    <input id="rank" placeholder="Enter Rank" name="rank" th:field="*{rank}"  type="text" class="required">
+                  </div>
+
+                  <div class="input-field">
+                    <label for="rankclass" th:text="#{user.rankclass}">Class</label>
+                    <input id="rankclass" placeholder="Enter Class" name="rankclass" th:field="*{rankclass}"  type="text" class="required">
+                  </div>
+
+                  <div class="input-field">
+                    <label for="actual_employer" th:text="#{user.actual_employer}">Actual Employer</label>
+                    <input id="actual_employer" placeholder="Enter Actual Employer" th:field="*{actual_employer}"  name="actual_employer" type="text" class="required">
+                  </div>
+
+                  <div class="input-field full_">
+                    <label for="work_location" th:text="#{user.work_location}">Work Location</label>
+                    <textarea name="work_location" id="work_location" placeholder="Enter Work Location" th:field="*{work_location}"  class="required"></textarea>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="input-field  w-full flex  place-content-between">
+                      <a class="link brand-color" th:href="@{/register}" th:text="#{form.register}"></a>
+                    </div>
+                  </div>
+<!--
+                  <button onclick="return CheckData()">Check</button>
+-->
+
+                 <!-- <button th:data-name="${employeeInfo.username}" th:onclick="salute(this.getAttribute('data-name'))">using data attribute</button>
+
+                  <a th:onclick="return add_exp([[${employeeInfo}]])">Add Exp</a>
+                  <a th:onclick="return add_item([[${employeeInfo}]])">Add Qual</a>-->
+
+                  <script  th:inline="javascript">
+                    var employeeInfo1 = [[${employeeInfo}]];
+                    function greetWorld() {
+
+                      alert("hello world")
+                    }
+
+                    function salute(name) {
+                      console.log(employeeInfo1);
+                      alert("hello: " + name)
+                    }
+                  </script>
+                  <script>
+
+                    function CheckMe(employeeInfo){
+
+                      var newExperience = {
+                        id: null,
+                        entityName: null,
+                        workStartDate: null,
+                        workEndDate: null,
+                        jobTitle: null,
+                        employeeInfo: null
+                      };
+
+                      // Add the new experience to the existing array
+                      employeeInfo.previousExperiences.push(newExperience);
+
+                      console.log(employeeInfo);
+                      return false;
+                    }
+                    function CheckData(){
+                      console.log($('#userObject').val());
+                      return false;
+                    }
+                  </script>
+                </div>
+              </div>
+
+
+            </section>
+
+            <h3>Address</h3>
+            <section>
+
+              <div class="form-wrapper">
+                <div class="row gap-1 input_box">
+                  <div class="input-field">
+                    <label for="city" >City</label>
+                     <select name="city" id="city" th:field="*{address.city}" >
+                      <option value="" disabled  selected>Select City</option>
+                      <option value="Riyadh">Riyadh</option>
+                       <option value="Jeddah">Jeddah</option>
+                       <option value="Mecca">Mecca</option>
+                       <option value="Medina">Medina</option>
+                       <option value="Dammam">Dammam</option>
+                       <option value="Khobar">Khobar</option>
+                       <option value="Dhahran">Dhahran</option>
+                       <option value="Jizan">Jizan</option>
+                       <option value="Abha">Abha</option>
+                       <option value="Taif">Taif</option>
+
+                    </select>
+                  </div>
+
+                  <div class="input-field">
+                    <label for="phone-no">phone number</label>
+                    <input id="phone-no" name="phone-no" type="text" th:field="*{address.phoneNumber}" class="required" placeholder="phone number">
+                  </div>
+
+
+
+                  <div class="input-field">
+                    <label for="email">E-mail</label>
+                    <input id="email" name="email" type="text" th:field="*{address.email}" class="required" placeholder="E-mail">
+                  </div>
+
+
+                </div>
+              </div>
+            </section>
+
+
+
+            <h3>Qualification</h3>
+            <section>
+              <div class="form-wrapper">
+
+                <div class="row gap-1 input_box" id="certificate_group">
+                  <div class="input-field">
+                    <label for="certificateName" th:text="#{qualification.certificateName}">
+                      Certificate name</label>
+                    <input id="certificateName" name="certificateName"  th:field="*{qualifications[0].certificateName}" type="text" placeholder="Certificate name" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="specialization">
+                      Specialization</label>
+                    <input id="specialization" name="specialization" th:field="*{qualifications[0].specialization}" placeholder="Specialization" type="text" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="subspecialty">
+                      Subspecialty</label>
+                    <input id="subspecialty" name="subspecialty" th:field="*{qualifications[0].subSpecialty}" type="text" placeholder="Subspecialty" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="handGraduation">
+                      Hand graduation</label>
+                    <input id="handGraduation" name="handGraduation" th:field="*{qualifications[0].handGraduation}" placeholder="Hand graduation" type="text" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="institution">
+                      Where to get it</label>
+                    <input id="institution" name="institution"  th:field="*{qualifications[0].institution}" placeholder="Where to get it" type="text" class="required">
+                  </div>
+
+                  <div class="input-field">
+                    <label for="dateObtainedStart">
+                      Date obtained (beginning)</label>
+                    <input id="dateObtainedStart" name="dateObtainedStart" th:field="*{qualifications[0].dateObtainedStart}"   type="date" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="dateObtainedEnd">
+                      Date obtained (end)</label>
+                    <input id="dateObtainedEnd" name="dateObtainedEnd"   th:field="*{qualifications[0].dateObtainedEnd}"  type="date" class="required">
+                  </div>
+
+
+
+
+                </div>
+
+                <a class="row  flex gap-5 add-more-certificate items-center"  id="add_item" th:onclick="return add_item([[${employeeInfo}]])">
+                  <div data-number="2" class="pull-right addReference smallBtn    nominee_edfile_addReference">
+                    <svg x="0" y="0" viewBox="0 0 511.995 511.995" >
+                      <title>Add icon</title>
+                      <path d="M437.126,74.939c-99.826-99.826-262.307-99.826-362.133,0C26.637,123.314,0,187.617,0,256.005    s26.637,132.691,74.993,181.047c49.923,49.923,115.495,74.874,181.066,74.874s131.144-24.951,181.066-74.874    C536.951,337.226,536.951,174.784,437.126,74.939z M409.08,409.006c-84.375,84.375-221.667,84.375-306.042,0    c-40.858-40.858-63.37-95.204-63.37-153.001s22.512-112.143,63.37-153.021c84.375-84.375,221.667-84.355,306.042,0    C493.435,187.359,493.435,324.651,409.08,409.006z" ></path>
+
+                      <path d="M341.525,310.827l-56.151-56.071l56.151-56.071c7.735-7.735,7.735-20.29,0.02-28.046    c-7.755-7.775-20.31-7.755-28.065-0.02l-56.19,56.111l-56.19-56.111c-7.755-7.735-20.31-7.755-28.065,0.02    c-7.735,7.755-7.735,20.31,0.02,28.046l56.151,56.071l-56.151,56.071c-7.755,7.735-7.755,20.29-0.02,28.046    c3.868,3.887,8.965,5.811,14.043,5.811s10.155-1.944,14.023-5.792l56.19-56.111l56.19,56.111    c3.868,3.868,8.945,5.792,14.023,5.792c5.078,0,10.175-1.944,14.043-5.811C349.28,331.117,349.28,318.562,341.525,310.827z" ></path>
+                    </svg>
+                  </div>
+                  <h3 class="font-bold">Add certificate</h3>
+                </a>
+
+
+
+
+
+
+
+              </div>
+            </section>
+
+            <h3>Additional Documents</h3>
+            <section>
+
+              <div class="form-wrapper">
+
+                <div class="row gap-1 input_box">
+
+                  <div class="input-field">
+                    <label for="professionalCertificate">
+                      Professional certificate</label>
+                    <input id="professionalCertificate" name="professionalCertificate" th:field="*{additionalDocument.professionalCertificate}" placeholder="Professional certificate"    type="text" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="where-to-get">
+                      Release Date</label>
+                    <input id="releaseDate" name="releaseDate"   th:field="*{additionalDocument.releaseDate}"  type="date" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="expiry">
+                      Expiry</label>
+                    <select name="expiry" id="expiry" th:field="*{additionalDocument.expiry}" >
+                      <option value="" disabled  selected>Select Expiry</option>
+                      <option value="no-expiry">No expiry date</option>
+                      <option value="have-expiry">Have expiry date</option>
+                    </select>
+
+                  </div>
+                  <div class="input-field hidden " id="expiry-date-value">
+                    <label for="expiry-date">
+                      Expiry date</label>
+                    <input id="expiry-date" name="expiry-date"     type="date" class="required">
+                  </div>
+
+                  <div class="input-field">
+                    <label for="electronicLink">
+                      Electronic link</label>
+                    <input id="electronicLink" name="electronicLink"  th:field="*{additionalDocument.electronicLink}"  class="required">
+                  </div>
+
+                  <div class="input-field" th:if="${additionalDocument!=null and additionalDocument.files==null}">
+                    <label for="certificateFile" class="error">Attachment</label>
+                    <input type="file" id="certificateFile" name="certificateFile" onchange="validateSize()"  />
+                    <span id="file_error"></span>
+
+                  </div>
+
+                  <div class="input-field" th:if="${additionalDocument!=null and additionalDocument.files!=null}">
+<!--
+                     <a th:attr="href=@{'/file/'+ ${additionalDocument.id}}">Download File</a>
+-->
+
+                    <a  th:href="@{'/file/'+ ${additionalDocument.id}}" >
+                      <i class="fa fa-download">Download</i>
+
+                    </a>
+
+                    <!--
+                                        <a th:attr="href=@{'//file/' + ${additionalDocument.getId()}}">Download File</a>
+                    -->
+
+
+                  </div>
+
+
+                </div>
+
+
+
+              </div>
+            </section>
+            <h3>Previous Experiences</h3>
+            <section>
+              <div class="form-wrapper">
+
+                <div class="row gap-1 input_box" id="experiences_group">
+                  <div class="input-field">
+                    <label for="entityName">
+                      Name of the entity</label>
+                    <input id="entityName" name="entityName" th:field="*{previousExperiences[0].entityName}" type="text" placeholder="Name of the entity" class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="workStartDate">
+                      Work starting date</label>
+                    <input id="workStartDate" name="workStartDate" type="date"  th:field="*{previousExperiences[0].workStartDate}"  class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="workEndDate">
+                      End date of employment</label>
+                    <input id="workEndDate" name="workEndDate" type="date"  th:field="*{previousExperiences[0].workEndDate}"  class="required">
+                  </div>
+                  <div class="input-field">
+                    <label for="jobTitle">
+                      Job title</label>
+                    <input id="jobTitle" name="jobTitle" th:field="*{previousExperiences[0].jobTitle}" type="text" placeholder="Job title" class="required">
+                  </div>
+                </div>
+
+                <a class="row   flex gap-5 add-more-certificate items-center"  id="add_exp" th:onclick="return add_exp([[${employeeInfo}]])">
+                  <div data-number="2" class="pull-right addReference smallBtn    nominee_edfile_addReference">
+                    <svg x="0" y="0" viewBox="0 0 511.995 511.995" >
+                      <title>Add icon</title>
+                      <path d="M437.126,74.939c-99.826-99.826-262.307-99.826-362.133,0C26.637,123.314,0,187.617,0,256.005    s26.637,132.691,74.993,181.047c49.923,49.923,115.495,74.874,181.066,74.874s131.144-24.951,181.066-74.874    C536.951,337.226,536.951,174.784,437.126,74.939z M409.08,409.006c-84.375,84.375-221.667,84.375-306.042,0    c-40.858-40.858-63.37-95.204-63.37-153.001s22.512-112.143,63.37-153.021c84.375-84.375,221.667-84.355,306.042,0    C493.435,187.359,493.435,324.651,409.08,409.006z" ></path>
+
+                      <path d="M341.525,310.827l-56.151-56.071l56.151-56.071c7.735-7.735,7.735-20.29,0.02-28.046    c-7.755-7.775-20.31-7.755-28.065-0.02l-56.19,56.111l-56.19-56.111c-7.755-7.735-20.31-7.755-28.065,0.02    c-7.735,7.755-7.735,20.31,0.02,28.046l56.151,56.071l-56.151,56.071c-7.755,7.735-7.755,20.29-0.02,28.046    c3.868,3.887,8.965,5.811,14.043,5.811s10.155-1.944,14.023-5.792l56.19-56.111l56.19,56.111    c3.868,3.868,8.945,5.792,14.023,5.792c5.078,0,10.175-1.944,14.043-5.811C349.28,331.117,349.28,318.562,341.525,310.827z" ></path>
+                    </svg>
+                  </div>
+                  <h3 class="font-bold">Add Experiences</h3>
+                </a>
+
+              </div>
+            </section>
+          </form>
+
+        </div>
+
+
+      </div>
+    </div>
+  </main>
+  </div>
+
+</div>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+></script>
+<script src="
+https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+"></script>
+<script th:src="@{/scripts/min/page_plugins.js}"></script>
+<script  th:src="@{/scripts/vendor/swiper-bundle.min.js}"></script>
+<script  th:src="@{/scripts/vendor/jquery.selectric.js}"></script>
+<script  th:src="@{/scripts/min/page.js}"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js" integrity="sha512-bE0ncA3DKWmKaF3w5hQjCq7ErHFiPdH2IGjXRyXXZSOokbimtUuufhgeDPeQPs51AI4XsqDZUK7qvrPZ5xboZg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script  th:src="@{/scripts/vendor/jquery.validate.js}"></script>
+
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  var employeeInfo;
+  $(document).on("click",  '.collapsible', function () {
+
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if ($(content).hasClass('active')) {
+      $(content).removeClass("active");
+    } else {
+      $(content).addClass("active");
+    }
+  });
+
+</script>
+
+
+<script>
+
+
+  // Initialize wizard
+  var form = $("#apply-form").show();
+
+  form.steps({
+    headerTag: "h3",
+    bodyTag: "section",
+    transitionEffect: "slideLeft",
+    stepsOrientation: "vertical",
+    titleTemplate: '<span class="number">0#index#</span><span class="title">#title#</span>',
+
+
+    onInit: function (event, currentIndex) {
+      var incr = 1;
+      $('select').selectric({ disableOnMobile: false, nativeOnMobile: false });
+      $('select').on('change', function() {
+        $(this).valid();
+      });
+
+
+      $(".steps").append(`<div class="progress-wrapper"> <div class="progress"><svg class="circle-container" viewBox="2 -2 28 36" xmlns="http://www.w3.org/2000/svg">
+
+          <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#B89C17"/>
+<stop offset="50%" stop-color="#87882D"/>
+<stop offset="100%" stop-color="#2F6456"/>
+</linearGradient>
+
+<circle class="circle-container__background" r="16" cx="16" cy="16"></circle>
+    <circle
+      class="circle-container__progress"  stroke="url(#linear)"
+      r="16"
+      cx="16"
+      cy="16"
+      style="stroke-dashoffset: 0"
+    ></circle>
+  </svg> <span></span> </div> </div>`);
+
+      var per= 100*(currentIndex+1) / $(".steps ul li").length;
+      $(".circle-container__progress").css("stroke-dasharray",per+" 100")
+      $(".steps .progress span").html(per.toFixed(0)+"%")
+
+
+
+    },
+
+    onStepChanging: function (event, currentIndex, newIndex)
+    {
+      console.log("onStepChanging");
+      if (currentIndex > newIndex)
+      {
+        return true;
+      }
+
+      //	if (currentIndex == 0) { return true;}
+      if (currentIndex == 0) { return true;}
+      if (currentIndex == 1) { return true;}
+      if (currentIndex == 2) { return true;}
+      if (currentIndex == 3) { return true;}
+
+      return form.valid();
+    },
+    onStepChanged: function (event, currentIndex, priorIndex) {
+
+
+      var per= 100*(currentIndex+1) / $(".steps ul li").length;
+      $(".circle-container__progress").css("stroke-dasharray",per+" 100")
+      $(".steps .progress span").html(per.toFixed(0)+"%")
+
+    },
+    onFinished: function (event, currentIndex)
+    {
+      console.log("onStepChanging");
+      //return form.valid();
+      if(form.valid())
+        form.submit();
+        //alert("Submitted!");
+    },
+
+    labels: {
+      cancel: "Cancel",
+      current: "",
+      pagination: "Pagination",
+      finish: "Finish",
+      next: "Next",
+      previous: "Previous",
+      loading: "Loading ..."
+    }
+  })
+
+
+
+  //
+
+  var form = $("#apply-form");
+  var req_messge = "This field is required";
+  //$(".contribute-form").validate({
+
+  form.validate({
+    rules: {
+      'martial-status': {
+        required: true,
+      },/**/
+      gender: {
+        required: true,
+      },
+      country: {
+        required: true,
+      }
+
+    },
+    messages: {
+
+
+    },
+  });
+
+  function submitForm(employeeInfo) {
+    // Perform any necessary validation or additional processing here.
+
+    // Send the employeeInfo object to the server.
+    $.ajax({
+      type: 'POST',
+      url: '/updateApply', // Specify the endpoint for form submission
+      data: JSON.stringify(employeeInfo), // Send the updated object as JSON
+      contentType: 'application/json',
+      success: function(response) {
+        // Handle the server's response, e.g., display a success message.
+      },
+      error: function(xhr, status, error) {
+        // Handle errors, e.g., display an error message.
+      }
+    });
+  }
+
+  var incr = 1;
+
+  function add_item(employeeInfo) {
+    var newItem = {
+      id: null,
+      certificateName: null,
+      specialization: null,
+      subSpecialty: null,
+      institution: null,
+      handGraduation: null,
+      dateObtainedStart: null,
+      dateObtainedEnd: null,
+      file: null,
+      employeeInfo: null
+    };
+
+    exp_incr = exp_incr+1;
+    // Add the new experience to the existing array
+    employeeInfo.qualifications.push(newItem);
+    var index = exp_incr; // employeeInfo.qualifications.length - 1;
+
+    console.log(employeeInfo);
+    var $_clone = $("#referenceDivWrapper").clone();
+    // Modify the duplicated fields with unique names and values
+    $_clone.find('[name="certificate-name"]').attr('name', 'qualifications['+ index + '].certificateName').val(newItem.certificateName);
+    $_clone.find('[name="specialization"]').attr('name', 'qualifications['+ index + '].specialization').val(newItem.specialization);
+    $_clone.find('[name="subspecialty"]').attr('name', 'qualifications['+ index + '].subSpecialty').val(newItem.subSpecialty);
+    $_clone.find('[name="institution"]').attr('name', 'qualifications['+ index + '].institution').val(newItem.institution);
+
+    $_clone.find('[name="hand-graduation"]').attr('name', 'qualifications['+ index + '].handGraduation').val(newItem.handGraduation);
+    $_clone.find('[name="date-obtained"]').attr('name', 'qualifications['+ index + '].dateObtainedStart').val(newItem.dateObtainedStart);
+    $_clone.find('[name="date-obtained-end"]').attr('name', 'qualifications['+ index + '].dateObtainedEnd').val(newItem.dateObtainedEnd);
+
+    $_clone.find("input").each(function(i, v) {
+
+      console.log($(this).attr("name"));
+      if ($(this).attr("name") == "file_") {
+        $(this).attr("name", "nominee_edfile_[]");
+        $(this).attr("id", "nominee_edfile_" + incr);
+      } else if($(this).attr("class") == "original_name") {
+        $(this).attr("name", "nominee_edfile_name[]");
+        $(this).attr("id", $(this).attr("id") + incr);
+      }	else  {
+        $(this).attr("name", $(this).attr("name") + "[]");
+        $(this).attr("id", $(this).attr("id") + incr);
+      }
+
+
+
+
+      if ($(this).hasClass("uploader_")) {
+        $(this).addClass("uploader_" + incr);
+      }
+    });
+    $("#certificate_group").after($_clone.html());
+
+
+
+  }
+  var incr = 1;
+  function add_exp(employeeInfo) {
+
+    var newExperience = {
+      id: null,
+      "name-entity": null,
+      "work-starting-date": null,
+      "end-date-employment": null,
+      "job-title": null,
+      employeeInfo: null
+    };
+
+    // Add the new experience to the existing array
+   // var newExpereince =  employeeInfo.previousExperiences[0];
+    //const newExpereince = [...employeeInfo.previousExperiences[0]];
+
+    employeeInfo.previousExperiences.push(newExperience);
+    console.log(employeeInfo);
+    console.log('before increment');
+    console.log(exp_incr);
+    //
+    exp_incr= exp_incr + 1;
+    console.log('after increment');
+    console.log(exp_incr);
+    var index = exp_incr;// employeeInfo.previousExperiences.length - 1;
+
+    var $_clone = $("#referenceExpWrapper").clone();
+    console.log($_clone);
+    // Modify the duplicated fields with unique names and values
+    $_clone.find('[name="name-entity"]').attr('name', 'previousExperiences['+ index + '].entityName').val(newExperience.entityName);
+    $_clone.find('[name="work-starting-date"]').attr('name', 'previousExperiences['+ index + '].workStartDate').val(newExperience.workStartDate);
+    $_clone.find('[name="end-date-employment"]').attr('name', 'previousExperiences['+ index + '].workEndDate').val(newExperience.workEndDate);
+    $_clone.find('[name="job-title"]').attr('name', 'previousExperiences['+ index + '].jobTitle').val(newExperience.jobTitle);
+
+
+    $_clone.find("input").each(function(i, v) {
+
+      console.log($(this).attr("name"));
+
+      if ($(this).attr("name") == "file_") {
+        $(this).attr("name", "nominee_edfile_[]");
+        $(this).attr("id", "nominee_edfile_" + incr);
+      } else if($(this).attr("class") == "original_name") {
+        $(this).attr("name", "nominee_edfile_name[]");
+        $(this).attr("id", $(this).attr("id") + incr);
+      }	else  {
+        $(this).attr("name", $(this).attr("name") + "[]");
+        $(this).attr("id", $(this).attr("id") + incr);
+      }
+
+
+
+
+      if ($(this).hasClass("uploader_")) {
+        $(this).addClass("uploader_" + incr);
+      }
+    });
+    $("#experiences_group").after($_clone.html());
+
+
+  }
+
+  $(document).on("click", ".remove-btn-wrapper", function() {
+
+//$(this).closest('.form-row').remove();
+    $(this).parent().parent().parent().remove();
+  });
+
+
+  $(document).on('change', '#expiry', function() {
+    // Handle the change event here
+    var selectedValue = $(this).val();
+    if(selectedValue == 'have-expiry'){
+      $('#expiry-date-value').removeClass('hidden');
+    }else{
+      $('#expiry-date-value').addClass('hidden');
+    }
+  });
+</script>
+
+<div class="  hide_" style="display:none" id="referenceDivWrapper">
+  <div class="toggle-wrapper">
+    <button type="button" class="collapsible w-full flex items-end bg-gray-100 p-3 justify-between   active">
+      <span>Certificate</span>
+      <div class="w-[1rem]  toggle-icon">
+        <svg class="w-[50px]"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+
+              <defs>
+              </defs>
+          <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                <path d="M 90 24.25 c 0 -0.896 -0.342 -1.792 -1.025 -2.475 c -1.366 -1.367 -3.583 -1.367 -4.949 0 L 45 60.8 L 5.975 21.775 c -1.367 -1.367 -3.583 -1.367 -4.95 0 c -1.366 1.367 -1.366 3.583 0 4.95 l 41.5 41.5 c 1.366 1.367 3.583 1.367 4.949 0 l 41.5 -41.5 C 89.658 26.042 90 25.146 90 24.25 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+              </g>
+              </svg>
+      </div>
+
+    </button>
+    <div class="toggle-content active bg-gray-50  p-3">
+      <div class="row gap-1 input_box relative more-items mt-[1em]  pb-[5em]"  >
+        <div class="input-field">
+          <label for="certificate-name">
+            Certificate name</label>
+          <input id="certificate-name" name="certificate-name" type="text" placeholder="Certificate name" class="required">
+        </div>
+        <div class="input-field">
+          <label for="specialization">
+            Specialization</label>
+          <input id="specialization" name="specialization" placeholder="Specialization" type="text" class="required">
+        </div>
+        <div class="input-field">
+          <label for="subspecialty">
+            Subspecialty</label>
+          <input id="subspecialty" name="subspecialty" type="text" placeholder="Subspecialty" class="required">
+        </div>
+        <div class="input-field">
+          <label for="hand-graduation">
+            Hand graduation</label>
+          <input id="hand-graduation" name="hand-graduation"  placeholder="Hand graduation" type="text" class="required">
+        </div>
+        <div class="input-field">
+          <label for="where-to-get">
+            Where to get it</label>
+          <input id="where-to-get" name="where-to-get"  placeholder="Where to get it" type="text" class="required">
+        </div>
+
+        <div class="input-field">
+          <label for="date-obtained">
+            Date obtained (beginning)</label>
+          <input id="date-obtained" name="date-obtained"    type="date" class="required">
+        </div>
+        <div class="input-field">
+          <label for="date-obtained-end">
+            Date obtained (end)</label>
+          <input id="date-obtained-end" name="date-obtained-end"    type="date" class="required">
+        </div>
+
+
+        <div class="row relative remove-btn-wrapper">
+
+          <div class="removeBtn smallBtn iconBox">
+            <svg x="0" y="0" viewBox="0 0 511.995 511.995" >
+              <title>Remove icon</title>
+              <path d="M437.126,74.939c-99.826-99.826-262.307-99.826-362.133,0C26.637,123.314,0,187.617,0,256.005    s26.637,132.691,74.993,181.047c49.923,49.923,115.495,74.874,181.066,74.874s131.144-24.951,181.066-74.874    C536.951,337.226,536.951,174.784,437.126,74.939z M409.08,409.006c-84.375,84.375-221.667,84.375-306.042,0    c-40.858-40.858-63.37-95.204-63.37-153.001s22.512-112.143,63.37-153.021c84.375-84.375,221.667-84.355,306.042,0    C493.435,187.359,493.435,324.651,409.08,409.006z"></path>
+
+              <path d="M341.525,310.827l-56.151-56.071l56.151-56.071c7.735-7.735,7.735-20.29,0.02-28.046    c-7.755-7.775-20.31-7.755-28.065-0.02l-56.19,56.111l-56.19-56.111c-7.755-7.735-20.31-7.755-28.065,0.02    c-7.735,7.755-7.735,20.31,0.02,28.046l56.151,56.071l-56.151,56.071c-7.755,7.735-7.755,20.29-0.02,28.046    c3.868,3.887,8.965,5.811,14.043,5.811s10.155-1.944,14.023-5.792l56.19-56.111l56.19,56.111    c3.868,3.868,8.945,5.792,14.023,5.792c5.078,0,10.175-1.944,14.043-5.811C349.28,331.117,349.28,318.562,341.525,310.827z" ></path>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+<div class="  hide_" style="display:none" id="referenceExpWrapper">
+  <div class="toggle-wrapper">
+    <button type="button" class="collapsible w-full flex items-end bg-gray-100 p-3 justify-between   active">
+      <span>Certificate</span>
+      <div class="w-[1rem]  toggle-icon">
+        <svg class="w-[50px]"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+
+            <defs>
+            </defs>
+          <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+              <path d="M 90 24.25 c 0 -0.896 -0.342 -1.792 -1.025 -2.475 c -1.366 -1.367 -3.583 -1.367 -4.949 0 L 45 60.8 L 5.975 21.775 c -1.367 -1.367 -3.583 -1.367 -4.95 0 c -1.366 1.367 -1.366 3.583 0 4.95 l 41.5 41.5 c 1.366 1.367 3.583 1.367 4.949 0 l 41.5 -41.5 C 89.658 26.042 90 25.146 90 24.25 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+            </g>
+            </svg>
+      </div>
+
+    </button>
+    <div class="toggle-content active bg-gray-50  p-3">
+
+
+      <div class="row gap-1 input_box relative more-items mt-[1em]  pb-[5em]"  >
+        <div class="input-field">
+          <label for="name-entity">
+            Name of the entity</label>
+          <input id="name-entity" name="name-entity" type="text" placeholder="Name of the entity" class="required">
+        </div>
+        <div class="input-field">
+          <label for="work-starting-date">
+            Work starting date</label>
+          <input id="work-starting-date" name="work-starting-date" type="date"   class="required">
+        </div>
+        <div class="input-field">
+          <label for="end-date-employment">
+            End date of employment</label>
+          <input id="end-date-employment" name="end-date-employment" type="date"   class="required">
+        </div>
+        <div class="input-field">
+          <label for="job-title">
+            Job title</label>
+          <input id="job-title" name="job-title" type="text" placeholder="Job title" class="required">
+        </div>
+
+        <div class="row relative remove-btn-wrapper">
+
+          <div class="removeBtn smallBtn iconBox">
+            <svg x="0" y="0" viewBox="0 0 511.995 511.995" >
+              <title>Remove icon</title>
+              <path d="M437.126,74.939c-99.826-99.826-262.307-99.826-362.133,0C26.637,123.314,0,187.617,0,256.005    s26.637,132.691,74.993,181.047c49.923,49.923,115.495,74.874,181.066,74.874s131.144-24.951,181.066-74.874    C536.951,337.226,536.951,174.784,437.126,74.939z M409.08,409.006c-84.375,84.375-221.667,84.375-306.042,0    c-40.858-40.858-63.37-95.204-63.37-153.001s22.512-112.143,63.37-153.021c84.375-84.375,221.667-84.355,306.042,0    C493.435,187.359,493.435,324.651,409.08,409.006z"></path>
+
+              <path d="M341.525,310.827l-56.151-56.071l56.151-56.071c7.735-7.735,7.735-20.29,0.02-28.046    c-7.755-7.775-20.31-7.755-28.065-0.02l-56.19,56.111l-56.19-56.111c-7.755-7.735-20.31-7.755-28.065,0.02    c-7.735,7.755-7.735,20.31,0.02,28.046l56.151,56.071l-56.151,56.071c-7.755,7.735-7.755,20.29-0.02,28.046    c3.868,3.887,8.965,5.811,14.043,5.811s10.155-1.944,14.023-5.792l56.19-56.111l56.19,56.111    c3.868,3.868,8.945,5.792,14.023,5.792c5.078,0,10.175-1.944,14.043-5.811C349.28,331.117,349.28,318.562,341.525,310.827z" ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<script>
+	function validateSize(){
+	//	console.log("hhhhhhhhhhhhhhhhhhhhhhhhh");
+		const uploadField = document.getElementById("certificateFile");
+	    console.log("hhhhhhhhhhhhhhhhhhhhhhhhh"+uploadField.files[0].size);
+		var size=uploadField.files[0].size;
+       if(size > 100000000){
+		  
+     //  alert("File is too big!");
+      $('#certificateFile').val('') ;
+       console.log($('#certificateFile').val());
+      $("#file_error").html("File size is greater than 100MB please select another file");
+      $("#file_error").css("border","1px solid red");
+      	document.getElementById("file_error").style.display = "block";
+   }
+         else{
+			 $('#certificateFile').val() ;
+	console.log("size fine"+uploadField.files[0].size);
+	document.getElementById("file_error").style.display = "none";
+ 
+		 }
+         }
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* Style the login form */
+.custom-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the form inputs and buttons */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Style the login page header */
+.form-header {
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+/* Style the header links */
+.navbar {
+    background-color: #007bff; /* Bootstrap primary color */
+}
+
+.navbar-brand,
+.navbar-nav li a {
+    color: #fff !important;
+}
+
+.navbar-brand:hover,
+.navbar-nav li a:hover {
+    color: #fff !important;
+    text-decoration: underline;
+}

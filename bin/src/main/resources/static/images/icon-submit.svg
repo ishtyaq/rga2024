@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="32.09" viewBox="0 0 30 32.09">
+  <g id="Icon" transform="translate(0 1.25)">
+    <rect id="Area" width="30" height="30" fill="#fcfcfc" opacity="0"/>
+    <g id="Icon-2" data-name="Icon" transform="translate(2.959)">
+      <path id="abc72865-4ebf-4eb7-a3d9-a491114ab045" d="M18.795,2H6.959A2.958,2.958,0,0,0,4,4.959V28.631A2.958,2.958,0,0,0,6.959,31.59H24.713a2.958,2.958,0,0,0,2.959-2.959V10.877Z" transform="translate(-4 -2)" fill="none" stroke="#2F6456" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <path id="eba04f38-2f38-4740-9387-7d294cd1e97d" d="M14,2v8.877h8.877" transform="translate(0.795 -2)" fill="none" stroke="#2F6456" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <line id="_5ecc630a-8218-487f-b0c4-8006bd60ef33" data-name="5ecc630a-8218-487f-b0c4-8006bd60ef33" x1="12" transform="translate(6.041 15.999)" fill="none" stroke="#2F6456" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <line id="b87efbf8-04b0-4988-a2a5-2077cd833cc5" x1="12" transform="translate(6.041 21.999)" fill="none" stroke="#2F6456" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <path id="_24d5a766-65b1-4126-a0c5-cfcfb490f7d5" data-name="24d5a766-65b1-4126-a0c5-cfcfb490f7d5" d="M10.959,9H8" transform="translate(-2.082 1.356)" fill="none" stroke="#2F6456" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    </g>
+  </g>
+</svg>

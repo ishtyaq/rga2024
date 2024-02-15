@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>RGA</title>
+  <meta name="description" content="" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=2"
+  />
+  <meta property="og:title" content="RGA" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+  <meta
+          http-equiv="Cache-Control"
+          content="no-cache, no-store, must-revalidate"
+  />
+  <link rel="preload" th:href="@{/images/logo.svg}" as="image" />
+<!--  <link rel="shortcut icon" href="../images/favicon.png" />-->
+  <link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABsFBMVEX////+/v79/v7z9vX4+vny9fT8/fzw8PD29vbr7Ozy8vLi4uP09PXs7e329vf39/jz9PTb3Nzv7+/q6urs7Oz8/Pzu7u/y8vPf3+Dq6+vv7/Dw9POds6uAnZOIpJre5eP9/f3k5OSwsbK9vr+0tLasra+1triwsbPY2dmur7C6u7yvsLHFxce0tbekpafU1daxsrO2t7nHx8jGx8i5uruqq6zOz9Dr6+zY4d5oi38/a1xTe222x8H6+vrExcamp6m2t7jAwcLIycrDxMXJysvP0NHV1dbKysvQ0dLt7e3R0tPFxsfBwsPCw8THyMno6enq6uvk6ueYsKiHo5mOqaDP2tbKy8zS09Pz8/Tt7e739/f19fXp6erl5ebg4OH09PTy8/Pz8/P5+frm5uTMzsnL19LK0cvX1tOxsrS3uLmtrq/Dw8XX2Ni5ubuys7XQ0NGnqKm8vb6ztLWnqaq7vL7h4eLa2tmTko+orKGYmI65ubf7+/vn6Oji4+Pc3N3l5ubg4eHk5OXo6Onh4uLj4+Tm5+fi4uLZ2tvx8fL7+/rQz82enpnEwrjz8u////75+ffkoBMyAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+cKHgYgJwngVOwAAADlSURBVDjLY2AYBYMYMDJBKAZmFlY2EIudg5Odi5uHl4+fi0NAkEtIWERUTFxCUkpaRlZOnoFBQVFJWUVVTV1DU0tbR1ddT9/A0MhY28TUzNzC0srahoHB1s7ewdHJ2YXX1c7Yzd3Yw9PL28fE18/MPyAwKDgkFKggLFwkQogj0j8qOoqDhyMmli9OJD6BOzEpJjklNS2dgSE+IzMjKzM7Jyw3zzBbN19fybmgsEituKRUsqy8orKKgaG6prZOMK4+Mq6hsUEyLia6qblFMq61rZ2ro7Oru6cXr3/7+hUGOshHATIAAO54MhrF4nPEAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTEwLTMwVDA2OjMxOjQxKzAwOjAw9+F83AAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMC0zMFQwNjozMTo0MSswMDowMIa8xGAAAAAgdEVYdHNvZnR3YXJlAGh0dHBzOi8vaW1hZ2VtYWdpY2sub3JnvM8dnQAAABh0RVh0VGh1bWI6OkRvY3VtZW50OjpQYWdlcwAxp/+7LwAAABh0RVh0VGh1bWI6OkltYWdlOjpIZWlnaHQAMTkyQF1xVQAAABd0RVh0VGh1bWI6OkltYWdlOjpXaWR0aAAxOTLTrCEIAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2OTg2NDc1MDHhbaU2AAAAD3RFWHRUaHVtYjo6U2l6ZQAwQkKUoj7sAAAAVnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vbW50bG9nL2Zhdmljb25zLzIwMjMtMTAtMzAvOWMyZmQ0ZTU2MDIxN2IyZWNmODcxOTllZGFmZGVhZmMuaWNvLnBuZ0rdJY4AAAAASUVORK5CYII=" />
+  <style>
+    body {
+      overflow: hidden;
+    }
+    body.dom-loaded {
+      overflow: auto;
+    }
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 999999;
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      transition: all 1s cubic-bezier(0.23, 0.48, 0.26, 0.94) 0.2s;
+      background-color: #fff;
+    }
+
+    .loader:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent linear-gradient(134deg, #B89C17 0%, #2F6456 100%) 0% 0% no-repeat padding-box;
+      opacity: 0.1;
+    }
+    .loader .loader-block {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      transform-origin: center;
+
+      transition: all 0.6s cubic-bezier(0.23, 0.48, 0.26, 0.94);
+    }
+
+    .loader .loader-block .loader-img {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 400px;
+      height: auto;
+    }
+    .loader .loader-block .loader-img img {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .dom-loaded .loader {
+      -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      pointer-events: none;
+    }
+    .error-message {
+      display: inline-block; /* Display the error message next to the button */
+      margin-left: 10px; /* Adjust the spacing between the button and the error message */
+      color: red; /* Set the text color for error messages */
+      font-size: 14px; /* Adjust the font size as needed */
+    }
+    @media only screen and (max-width: 767px) {
+      .loader .loader-block .loader-img {
+        max-width: 80vw;
+      }
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen" th:href="@{/styles/page.css}" />
+
+
+</head>
+<body class="innerPage loginPage brand-bg" th:attr="dir=${#locale.language == 'ar' ? 'rtl' : 'ltr'}">
+
+
+<!-- loader-->
+<div class="loader" data-loader>
+  <div class="loader-block">
+    <div class="loader-img">
+      <img th:src="@{/images/logo.svg}" alt="" />
+    </div>
+  </div>
+</div>
+<!-- loader-->
+<main>
+
+  <div class="mainContent">
+    <div class="head-settings flex h-full   justify-end    items-end p-8">
+      <ul class="flex header-settings gap-4  ">
+        <li class="flex items-center  ">
+          <!--<a  href="login_ar.html"  class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">ع</a>-->
+          <a href="/toggle-language" th:text="${#locale.language == 'ar' ? 'EN' : 'ع'}"
+             class="lang  flex justify-center items-center w-[3em] h-[3em] bg-input rounded-full  font-medium">Toggle Language</a>
+
+        </li>
+      </ul>
+    </div>
+    <div class="bg-shade">
+      <img th:src="@{/images/shade.svg}">
+    </div>
+    <div class="flex     justify-center align-middle min-h-screen  items-center">
+      <div class="login-wrapper bg-white flex justify-center    p-10  rounded-md min-w-[600px] flex flex-col gap-4">
+
+        <div class="logo-box flex justify-center">
+          <img th:src="@{/images/logo.svg}" />
+        </div>
+
+
+        <form th:action="@{/login}" id="login-form" method="post" class="form-v3 flex flex-col gap-4 w-full">
+          <div class="row">
+
+            <h3  class="text-center  uppercase font-bold" th:text="#{login.title}">Login</h3>
+
+          </div>
+          <div class="form-wrapper">
+            <div class="inputs flex flex-col gap-10 w-full">
+              <div class="row">
+                <div class="input-field active">
+                  <label for="username" class="" th:text="#{login.username}">Username</label>
+                  <input type="text" id="username" name="username" class="required" placeholder="Enter your username" />
+
+                </div>
+              </div>
+              <div class="row ">
+                <div class="input-field active">
+                  <label for="password" class="" th:text="#{login.password}">Password</label>
+                  <input type="password" class="required"  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"  id="password" name="password" />
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="input-field  w-full flex  place-content-between">
+                <input type="submit" class="btn" th:value="#{login.title}"/>
+<!--              <a class="link forget brand-color" style="margin-left: auto;">Register</a>-->
+              <!--<a href="/change-language?lang=en">EN</a>
+              <a href="/change-language?lang=ar">AR</a>-->
+              <!-- Error message display -->
+              <div th:if="${loginerror}" class="error-message">
+                <p th:text="${loginerror}"></p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+></script>
+<script src="
+https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+"></script>
+<script th:src="@{/scripts/min/page_plugins.js}"></script>
+<script  th:src="@{/scripts/vendor/swiper-bundle.min.js}"></script>
+<script  th:src="@{/scripts/vendor/jquery.selectric.js}"></script>
+<script  th:src="@{/scripts/min/page.js}"></script>
+<script  th:src="@{/scripts/vendor/jquery.validate.js}"></script>
+
+<script>
+  $('select').selectric({ disableOnMobile: false, nativeOnMobile: false });
+</script>
+<script>
+  $(document).ready(function() {
+    var form = $('#login-form')
+
+    form.submit(function() {
+      // Check if the form is valid
+
+      return form.valid();
+      //return form.valid();
+      /* if ($('#register-form').valid()) {
+           // The form is valid, you can proceed with your submit action.
+       } else {
+           // The form is not valid, handle the validation errors or prevent the submission.
+           // For example, you can display error messages or return false to prevent submission.
+       }*/
+    });
+  });
+
+
+</script>
+
+</body>
+</html>
