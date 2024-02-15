@@ -9,12 +9,12 @@
 		<version>2.7.17</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.rga</groupId>
-	<artifactId>RGA</artifactId>
+	<groupId>com.rga2024</groupId>
+	<artifactId>rga2024</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>RGA</name>
-	<description>RGA</description>
+	<name>rga2024</name>
+	<description>rga2024</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -84,6 +84,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+     
 				</configuration>
 			</plugin>
 		</plugins>

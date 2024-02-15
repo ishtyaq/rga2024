@@ -70,7 +70,7 @@
     
       <div class="navbar ">
         <div class="logoBox">
-          <a class="navbar-brand " href="index.html" title="logo" aria-label="logo">
+          <a class="navbar-brand " th:href="@{/page/index.html}" title="logo" aria-label="logo">
             <img th:src="@{/images/rga__logo.svg}" class="md_" alt="">
           </a>
     
@@ -78,7 +78,7 @@
             <div class="lBox">
               <ul class="sMenu">
                 <li class="nav-item ">
-                  <a href="index.html" class="nav-link updated__home ">
+                  <a th:href="@{/page/index.html}" class="nav-link updated__home ">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M23 20.5877V12.4668C23 11.8124 22.8651 11.1648 22.6035 10.5635C22.3419 9.9622 21.9591 9.41968 21.4783 8.96897L13.6842 1.66338C13.2299 1.23747 12.6272 1 12.0006 1C11.374 1 10.7713 1.23747 10.317 1.66338L2.52167 8.96897C2.04091 9.41968 1.65809 9.9622 1.39649 10.5635C1.1349 11.1648 0.999999 11.8124 1 12.4668V20.5877C1 21.2275 1.25754 21.8411 1.71596 22.2935C2.17438 22.7458 2.79614 23 3.44444 23H20.5556C21.2039 23 21.8256 22.7458 22.284 22.2935C22.7425 21.8411 23 21.2275 23 20.5877Z"
@@ -164,33 +164,33 @@
             <ul class="navbar-nav ">
     
               <li class="nav-item ">
-                <a href="index.html" class="nav-link ">
+                <a th:href="@{/page/index.html}" class="nav-link ">
                   <span>Main</span>
                 </a>
               </li>
     
               <li class="nav-item ">
-                <a href="@{/page/index.html#about}" class="nav-link scroll  ">
+                <a th:href="@{/page/index.html#about}" class="nav-link scroll  ">
                   <span>About</span>
                 </a>
               </li>
     
     
               <li class="nav-item ">
-                <a th:href="@{/page/index.html#see}" class="nav-link ">
+                <a th:href="@{/page/index.html#see}" class="nav-link scroll ">
                   <span>Vision</span>
                 </a>
               </li>
     
               <li class="nav-item ">
-                <a href="@{/page/index.html#authority}" class="nav-link ">
+                <a th:href="@{/page/index.html#authority}" class="nav-link scroll ">
                   <span>Roles</span>
                 </a>
               </li>
     
     
               <li class="nav-item ">
-                <a href="@{/page/index.html#objectives}" class="nav-link ">
+                <a th:href="@{/page/index.html#objectives}" class="nav-link  scroll">
                   <span>Objectives</span>
                 </a>
               </li>
@@ -198,13 +198,14 @@
     
     
               <li class="nav-item ">
-                <a href="@{/page/index.html#achievement}" class="nav-link ">
+                <a th:href="@{/page/index.html#achievement}"
+                  class="nav-link scroll ">
                   <span>Key Achievements</span>
                 </a>
               </li>
     
               <li class="nav-item ">
-                <a href="@{/page/index.html#footer}" class="nav-link ">
+                <a th:href="@{/page/index.html#footer}" class="nav-link scroll ">
                   <span>Contact Us</span>
                 </a>
               </li>
@@ -219,7 +220,7 @@
 <div class="loader">
 	<div class="loader-block">
 		<div class="loader-img">
-			<img  th:src="@{/images/rga__logo.svg}"alt="">
+			<img th:src="@{/images/rga__logo.svg}" alt="">
 		</div>
 	</div>
 </div>
@@ -423,7 +424,7 @@
       </div>
   </section>
 
-  <section class="homeSection seeSection noPaddTop" id="see">
+  <section class="homeSection seeSection " id="see">
     <div class="container">
       <div class="seeWrap fadeIn">
         <div class="imgBox abs">
@@ -483,7 +484,7 @@
     </div>
   </section>
 
-  <section class="homeSection authoritySection noPaddTop" id="authority">
+  <section class="homeSection authoritySection " id="authority">
     <div class="container">
       <div class="sectionTitle fadeTitle green_">
         <h2>Authority Roles</h2>
@@ -631,7 +632,7 @@
                 <div class="imgBox abs">
                   <picture>
                     <source th:srcset="@{/images/authority__04.webp}" type="image/webp">
-                    <source th:srcset="@{/images//authority__04.jpg}" type="image/jpeg">
+                    <source th:srcset="@{/images/authority__04.jpg}" type="image/jpeg">
                     <img th:src="@{/images/authority__04.jpg}" loading="lazy" alt="">
                   </picture>
                 </div>
@@ -824,7 +825,7 @@
     </div>
   </section>
 
-  <section class="homeSection objectiveSection noPaddTop" id="objectives">
+  <section class="homeSection objectiveSection " id="objectives">
     <div class="container">
       <div class="contentWrap">
         <div class="sectionTitle fadeTitle green_">
@@ -1298,7 +1299,8 @@
 
       <div class="copy">
         <div class="textBox">
-          <p>© General Roads Authority 2024</p>
+          <span>&copy</span>
+          <p>Road General Authority 2024</p>
         </div>
       </div>
     </div>
@@ -1349,7 +1351,9 @@
             prevEl: ".swiper-prev",
         },
         speed: 1000,
-
+        autoplay: {
+            delay: 2000,
+        },
         //loop: true,
         spaceBetween: 20,
         breakpoints: {

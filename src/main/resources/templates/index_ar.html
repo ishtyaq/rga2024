@@ -70,7 +70,7 @@
     
       <div class="navbar ">
         <div class="logoBox">
-          <a class="navbar-brand " href="index_ar.html" title="logo" aria-label="logo">
+          <a class="navbar-brand " th:href="@{/page/index_ar.html}" title="logo" aria-label="logo">
             <img th:src="@{/images/rga__logo.svg}" class="md_" alt="">
           </a>
     
@@ -177,20 +177,20 @@
     
     
               <li class="nav-item ">
-                <a th:href="@{/page/index_ar.html#see}" class="nav-link ">
+                <a th:href="@{/page/index_ar.html#see}" class="nav-link scroll ">
                   <span>الرؤية</span>
                 </a>
               </li>
     
               <li class="nav-item ">
-                <a th:href="@{/page/index_ar.html#authority}" class="nav-link ">
+                <a th:href="@{/page/index_ar.html#authority}" class="nav-link scroll ">
                   <span>الأدوار</span>
                 </a>
               </li>
     
     
               <li class="nav-item ">
-                <a th:href="@{/page/index_ar.html#objectives}" class="nav-link ">
+                <a th:href="@{/page/index_ar.html#objectives}" class="nav-link  scroll">
                   <span>الأهداف</span>
                 </a>
               </li>
@@ -198,13 +198,14 @@
     
     
               <li class="nav-item ">
-                <a th:href="@{/page/index_ar.html#achievement}" class="nav-link ">
-                  <span>أهم المنجزات في</span>
+                <a th:href="@{/page/index_ar.html#achievement}"
+                  class="nav-link scroll ">
+                  <span>أهم المنجزات</span>
                 </a>
               </li>
     
               <li class="nav-item ">
-                <a th:href="@{/page/index_ar.html#footer}" class="nav-link ">
+                <a th:href="@{/page/index_ar.html#footer}" class="nav-link scroll ">
                   <span>تواصل معنا</span>
                 </a>
               </li>
@@ -257,7 +258,7 @@
             <div class="imgBox abs">
               <picture>
                 <source th:srcset="@{/images/banner__03.webp}" type="image/webp">
-                <source th:srcset="@{images/banner__03.jpg}" type="image/jpg">
+                <source th:srcset="@{/images/banner__03.jpg}" type="image/jpg">
                 <img th:src="@{/images/banner__03.jpg}" alt="banner" loading="lazy">
               </picture>
             </div>
@@ -352,7 +353,7 @@
           <div class="video_ ">
             <video autoplay="autoplay" loop="loop" muted defaultMuted playsinline id="bgShortvid">
               <!-- <source src=" .webm" type="video/webm"> -->
-              <source src="@{/images/rga.mp4}" type="video/mp4">
+              <source th:src="@{/images/rga.mp4}" type="video/mp4">
               <img src="" type="image/jpg" title="Your browser does not support the <video> tag">
             </video>
 
@@ -823,7 +824,7 @@
   <section class="homeSection achievementSection" id="achievement">
     <div class="container">
       <div class="sectionTitle fadeTitle green_">
-        <h2>أهم المنجزات في 2023</h2>
+        <h2>أهم المنجزات 2023</h2>
       </div>
 
 
@@ -1110,7 +1111,8 @@
 
       <div class="copy">
         <div class="textBox">
-          <p>© الهيئة العامة للطرق 2024</p>
+          <span>&copy</span>
+          <p>2024 الهيئة العامة للطرق</p>
         </div>
       </div>
     </div>
@@ -1130,8 +1132,8 @@
   </div>
 </footer><script th:src="@{/scripts/lib/modernizr.min.js}"></script>
 <script th:src="@{/scripts/lib/jquery-3.4.1.min.js}"></script>
-<script th:src="@{/scripts/min/page_plugins.js?576675}"></script>
-<script th:src="@{/scripts/min/page.js?35343}"></script>
+<script th:src="@{/scripts/min/home_plugins.js?576675}"></script>
+<script th:src="@{/scripts/min/home.js?35343}"></script>
 <script>
     $(function () {
         $('[data-select]').selectric({ disableOnMobile: false, nativeOnMobile: false });
@@ -1161,7 +1163,9 @@
             prevEl: ".swiper-prev",
         },
         speed: 1000,
-
+        autoplay: {
+            delay: 2000,
+        },
         //loop: true,
         spaceBetween: 20,
         breakpoints: {

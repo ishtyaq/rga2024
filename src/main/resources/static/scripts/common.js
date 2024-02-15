@@ -189,6 +189,9 @@ var pgs_ = {
     $("body").on("click", ".nav-link.scroll", function (e) {
       e.preventDefault();
       $(document).off("scroll");
+      $("body").toggleClass("menu_open");
+      $(".nav_box_wrapper").toggleClass("show");
+      $(".menu_trigger").toggleClass("active_");
       if ($(this).closest(".navbar-nav").length) {
         $(".navbar-nav a.scroll").each(function () {
           $(this).parent().removeClass("active");

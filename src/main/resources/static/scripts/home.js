@@ -74,7 +74,9 @@ var viewport = window.innerWidth, pgs_ = {
     },
     menuscrollToDiv: function() {
         $("body").on("click", ".nav-link.scroll", function(e) {
-            e.preventDefault(), $(document).off("scroll"), $(this).closest(".navbar-nav").length && ($(".navbar-nav a.scroll").each(function() {
+            e.preventDefault(), $(document).off("scroll"), $("body").toggleClass("menu_open"), 
+            $(".nav_box_wrapper").toggleClass("show"), $(".menu_trigger").toggleClass("active_"), 
+            $(this).closest(".navbar-nav").length && ($(".navbar-nav a.scroll").each(function() {
                 $(this).parent().removeClass("active");
             }), $(this).parent().addClass("active"));
             var target = $(this).attr("data-href"), $target = $(target);
