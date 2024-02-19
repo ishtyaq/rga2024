@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html class="rtl" dir="rtl" lang="ar">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Roads General Authority</title>
+    <title>الهيئة العامة للطرق</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="preload" th:href="@{/images/logo.svg}" as="image">
-
     <link rel="shortcut icon" th:href="@{/images/favicon.png}">
     <link rel="stylesheet" th:href="@{/styles/main.css?1}">
+    <link rel="stylesheet" th:href="@{/styles/main-rtl.css?1}">
     <style>
         .loader {
             position: fixed;
@@ -65,7 +65,7 @@
         }
     </style></head>
 
-<body class="home__page __index">
+<body class="home__page __index_ar">
     <header id="header">
     
       <div class="navbar ">
@@ -78,7 +78,7 @@
             <div class="lBox">
               <ul class="sMenu">
                 <li class="nav-item ">
-                  <a th:href="@{/page/index.html}" class="nav-link updated__home ">
+                  <a href="index.html" class="nav-link updated__home ">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M23 20.5877V12.4668C23 11.8124 22.8651 11.1648 22.6035 10.5635C22.3419 9.9622 21.9591 9.41968 21.4783 8.96897L13.6842 1.66338C13.2299 1.23747 12.6272 1 12.0006 1C11.374 1 10.7713 1.23747 10.317 1.66338L2.52167 8.96897C2.04091 9.41968 1.65809 9.9622 1.39649 10.5635C1.1349 11.1648 0.999999 11.8124 1 12.4668V20.5877C1 21.2275 1.25754 21.8411 1.71596 22.2935C2.17438 22.7458 2.79614 23 3.44444 23H20.5556C21.2039 23 21.8256 22.7458 22.284 22.2935C22.7425 21.8411 23 21.2275 23 20.5877Z"
@@ -89,39 +89,39 @@
     
                 <li class="nav-item ">
                   <a th:href="@{/page/index.html#about}" class="nav-link scroll  ">
-                    <span>About</span>
+                    <span>عن الهيئة</span>
                   </a>
                 </li>
     
     
                 <li class="nav-item ">
                   <a th:href="@{/page/index.html#see}" class="nav-link ">
-                    <span>Vision</span>
+                    <span>الرؤية</span>
                   </a>
                 </li>
     
                 <li class="nav-item ">
                   <a th:href="@{/page/index.html#authority}" class="nav-link ">
-                    <span>Roles</span>
+                    <span>دور الهيئة</span>
                   </a>
                 </li>
     
     
                 <li class="nav-item ">
                   <a th:href="@{/page/index.html#objectives}" class="nav-link ">
-                    <span>Objectives</span>
+                    <span>الأهداف</span>
                   </a>
                 </li>
     
                 <li class="nav-item ">
                   <a th:href="@{/page/index.html#achievement}" class="nav-link ">
-                    <span>Key Achievements</span>
+                    <span>أهم المنجزات</span>
                   </a>
                 </li>
     
                 <li class="nav-item ">
                   <a th:href="@{/page/index.html#footer}" class="nav-link ">
-                    <span>Contact Us</span>
+                    <span>تواصل معنا</span>
                   </a>
                 </li>
     
@@ -149,8 +149,8 @@
     
               <ul class="sMenu">
                 <li class="no_hide ar__updated">
-                  <a th:href="@{/page/index_ar.html}" class="lang_ ">
-                    <span>AR</span>
+                  <a th:href="@{/page/index_en.html}" class="lang_ ">
+                    <span>EN</span>
                   </a>
                 </li>
               </ul>
@@ -165,33 +165,33 @@
     
               <li class="nav-item ">
                 <a th:href="@{/page/index.html}" class="nav-link ">
-                  <span>Main</span>
+                  <span>رئيسي</span>
                 </a>
               </li>
     
               <li class="nav-item ">
                 <a th:href="@{/page/index.html#about}" class="nav-link scroll  ">
-                  <span>About</span>
+                  <span>عن الهيئة</span>
                 </a>
               </li>
     
     
               <li class="nav-item ">
                 <a th:href="@{/page/index.html#see}" class="nav-link scroll ">
-                  <span>Vision</span>
+                  <span>الرؤية</span>
                 </a>
               </li>
     
               <li class="nav-item ">
                 <a th:href="@{/page/index.html#authority}" class="nav-link scroll ">
-                  <span>Roles</span>
+                  <span>الأدوار</span>
                 </a>
               </li>
     
     
               <li class="nav-item ">
                 <a th:href="@{/page/index.html#objectives}" class="nav-link  scroll">
-                  <span>Objectives</span>
+                  <span>الأهداف</span>
                 </a>
               </li>
     
@@ -200,14 +200,14 @@
               <li class="nav-item ">
                 <a th:href="@{/page/index.html#achievement}"
                   class="nav-link scroll ">
-                  <span>Key Achievements</span>
+                  <span>أهم المنجزات</span>
                 </a>
               </li>
     
     
               <li class="nav-item ">
                 <a th:href="@{/page/index.html#footer}" class="nav-link scroll ">
-                  <span>Contact Us</span>
+                  <span>تواصل معنا</span>
                 </a>
               </li>
             </ul>
@@ -224,12 +224,7 @@
 			<img th:src="@{/images/rga__logo.svg}" alt="">
 		</div>
 	</div>
-</div>
-
-
-
-
-<main class="ov_hidden">
+</div><main class="ov_hidden">
   <section class="homeBanner" id="home">
     <div class="bannerSwiper">
       <div class="swiper-wrapper">
@@ -319,13 +314,15 @@
             </div>
           </div>
         </div>
+
       </div>
 
       <div class="contentBox">
         <div class="container">
           <div class="textBox">
             <div class="sectionTitle">
-              <h1>Leading and Sustainable <span> Roads</span></h1>
+              <h1>طرق رائدة<span>ومستدامة</span></h1>
+              </h1>
             </div>
 
 
@@ -342,17 +339,14 @@
       <div class="aboutWrap">
         <div class="contentBox fadeIn d1">
           <div class="sectionTitle green_ fadeTitle">
-            <h2>About the Authority</h2>
+            <h2>عن الهيئة</h2>
           </div>
 
           <div class="textBox fadeIn d2">
-            <p>Roads General Authority is a governmental organization that was established by a decision of the Council
-              of Ministers on August 2, 2022. It holds public legal status and operates with financial and
-              administrative independence. The authority is under the administrative affiliation of the Minister of
-              Transport and Logistics. Its headquarters are based in Riyadh. The primary responsibility of the authority
-              is to legislate and regulate the road sector, ensuring compliance to enhance traffic safety and quality
-              standards. This involves the development and standardization of policies, as well as the implementation of
-              innovative and sustainable solutions </p>
+            <p>هي هيئة حكومية تأسست بقرار مجلس الوزراء بتاريخ 2 أغسطس 2022، وتتمتع بالشخصية الاعتبارية العامة،
+              والاستقلال المالي والإداري، وترتبط تنظيمًا بوزير النقل والخدمات اللوجستية، ومقرها الرئيسي في مدينة الرياض،
+              وتعد الجهة المسؤولة عن تشريع وتنظيم قطاع الطرق ومتابعة الامتثال فيه للرفع من السلامة المرورية والجودة، من
+              خلال تطوير وتوحيد المعايير والسياسات وإيجاد الحلول المبتكرة والمستدامة. </p>
           </div>
         </div>
 
@@ -422,10 +416,18 @@
             </svg>
           </div>
         </div>
+
+
+
+
+
+
+
       </div>
+    </div>
   </section>
 
-  <section class="homeSection seeSection " id="see">
+  <section class="homeSection seeSection noPaddTop" id="see">
     <div class="container">
       <div class="seeWrap fadeIn">
         <div class="imgBox abs">
@@ -437,12 +439,12 @@
         </div>
         <div class="contentBox fadeIn d1">
           <div class="sectionTitle white_ fadeTitle">
-            <h2>Vision</h2>
+            <h2>الرؤية</h2>
           </div>
 
           <div class="textBox lg_ fadeIn d2">
-            <p>Enhancing the safety and sustainability of the road sector through national competencies. It is also keen
-              to improve the quality of road networks, user experience, and fostering innovation </p>
+            <p>تعزيز سلامة واستدامة قطاع الطرق بقيادة كفاءات وطنية بالرفع من جودة شبكة الطرق، وتجربة مستخدميها والتشجيع
+              على الابتكار.</p>
           </div>
         </div>
 
@@ -485,10 +487,10 @@
     </div>
   </section>
 
-  <section class="homeSection authoritySection " id="authority">
+  <section class="homeSection authoritySection noPaddTop" id="authority">
     <div class="container">
       <div class="sectionTitle fadeTitle green_">
-        <h2>Authority Roles</h2>
+        <h2>دور الهيئة</h2>
       </div>
 
 
@@ -508,7 +510,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Formulating public policies related to roads and their maintenance.
+                    <p>وضع السياسات العامة المتعلقة بالطرق وصيانتها
                     </p>
                   </div>
                 </div>
@@ -531,7 +533,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Developing strategic plans for the road sector</p>
+                    <p>وضع الخطط الاستراتيجية الخاصة بقطاع الطرق</p>
                   </div>
                 </div>
 
@@ -553,7 +555,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Proposing projects for systems relevant to the authority's jurisdiction</p>
+                    <p>اقتراح مشروعات الأنظمة ذات الصلة باختصاصات الهيئة</p>
                   </div>
                 </div>
 
@@ -575,7 +577,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Establishing guidelines and rules to support investment activities</p>
+                    <p>وضع ضوابط وقواعد دعم الأنشطة الاستثمارية</p>
                   </div>
                 </div>
 
@@ -597,7 +599,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Enhancing the competitive landscape for the construction, operation, and maintenance of roads</p>
+                    <p>تعزيز الوضع التنافسي لإنشاء الطرق، تشغيلها وصيانتها</p>
                   </div>
                 </div>
 
@@ -619,7 +621,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Conducting studies and research related to the road sector</p>
+                    <p>إجراء الدراسات والأبحاث المتعلقة بقطاع الطرق</p>
                   </div>
                 </div>
 
@@ -627,6 +629,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -641,7 +644,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Setting safety, environmental, and security standards for roads</p>
+                    <p>وضع معايير الأمان والسلامة والبيئة المتعلقة بالطرق</p>
                   </div>
                 </div>
 
@@ -649,6 +652,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -663,7 +667,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Granting licenses and permits for the road sector</p>
+                    <p>منح التراخيص والتصاريح الخاصة بقطاع الطرق</p>
                   </div>
                 </div>
 
@@ -671,6 +675,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -685,7 +690,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Coordinating with relevant entities to provide necessary services for roads</p>
+                    <p>التنسيق مع الجهات ذات العلاقة لتزويد الطرق بالخدمات اللازمة</p>
                   </div>
                 </div>
 
@@ -693,6 +698,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -707,8 +713,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Establishing conditions, standards, guidelines, and specifications for road construction and
-                      maintenance</p>
+                    <p>وضع الشروط، المعايير، الضوابط والمواصفات لإنشاء الطرق وصيانتها</p>
                   </div>
                 </div>
 
@@ -716,6 +721,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -730,7 +736,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Coordinating with other relevant entities to attract local and regional investments</p>
+                    <p>التنسيق مع الجهات الأخرى ذات العلاقة لجذب الاستثمارات المحلية والإقليمية</p>
                   </div>
                 </div>
 
@@ -738,6 +744,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -752,7 +759,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Conducting studies and research related to the road sector and its projects</p>
+                    <p>إجراء الدارسات والأبحاث المتعلقة بقطاع الطرق ومشروعاتها</p>
                   </div>
                 </div>
 
@@ -760,6 +767,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -774,8 +782,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Organizing and hosting exhibitions and conferences related to the road sector and participating
-                      in them</p>
+                    <p>تنظيم وإقامة المعارض والمؤتمرات ذات العلاقة بقطاع الطرق والمشاركة فيها</p>
                   </div>
                 </div>
 
@@ -783,6 +790,7 @@
               </a>
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="aItem">
               <a class="inner_" href="#">
@@ -797,7 +805,7 @@
 
                 <div class="contentBox">
                   <div class="textBox">
-                    <p>Representing the Kingdom in international bodies and organizations related to the road sector</p>
+                    <p>تمثيل المملكة في الهيئات والمنظمات الدولية ذات العلاقة بقطاع الطرق</p>
                   </div>
                 </div>
 
@@ -826,11 +834,11 @@
     </div>
   </section>
 
-  <section class="homeSection objectiveSection " id="objectives">
+  <section class="homeSection objectiveSection noPaddTop" id="objectives">
     <div class="container">
       <div class="contentWrap">
         <div class="sectionTitle fadeTitle green_">
-          <h2>Objectives</h2>
+          <h2>الأهداف</h2>
         </div>
 
         <div class="contentBox fadeIn d1">
@@ -851,7 +859,7 @@
               </div>
 
               <div class="sectionTitleSmall">
-                <p>Elevate the Kingdom's road quality index to the sixth globally</p>
+                <p>رفع مؤشر المملكة في جودة الطرق للسادس عالمياً</p>
               </div>
             </div>
 
@@ -875,7 +883,7 @@
               </div>
 
               <div class="sectionTitleSmall">
-                <p>Reduce road fatalities to less than 5 cases per 100,000 people</p>
+                <p>خفض الوفيات على الطرق لأقل من 5 حالات لكل 100 ألف نسمة</p>
               </div>
             </div>
 
@@ -905,8 +913,7 @@
               </div>
 
               <div class="sectionTitleSmall">
-                <p>Ensure road safety factors cover the road network according to the International Road Assessment
-                  Program (IRAP) classification</p>
+                <p>تغطية شبكة الطرق بعوامل السلامة حسب تصنيف البرنامج الدولي لتقييم الطرق IRAP</p>
               </div>
             </div>
 
@@ -946,7 +953,7 @@
               </div>
 
               <div class="sectionTitleSmall">
-                <p>Keep pace with the future demand of the road sector and provide necessary services</p>
+                <p>مواكبة الطلب المستقبلي لقطاع الطرق وتوفير الخدمات اللازمة</p>
               </div>
             </div>
 
@@ -970,7 +977,7 @@
               </div>
 
               <div class="sectionTitleSmall">
-                <p>Increase private sector participation in operational activities by 20%</p>
+                <p>رفع نسبة مشاركة القطاع الخاص في الأعمال التشغيلية لـ 20%</p>
               </div>
             </div>
           </div>
@@ -1003,7 +1010,7 @@
   <section class="homeSection achievementSection" id="achievement">
     <div class="container">
       <div class="sectionTitle fadeTitle green_">
-        <h2>Key Achievements in 2023</h2>
+        <h2>أهم المنجزات 2023</h2>
       </div>
 
 
@@ -1018,13 +1025,14 @@
                       <h2>01</h2>
                     </div>
                     <div class="textBox">
-                      <p>Adoption of the Road Sector Strategy</p>
+                      <p>اعتماد استراتيجية قِطاع الطرق.</p>
                     </div>
                   </div>
 
 
                 </div>
               </div>
+
               <div class="achItem">
                 <div class="inner_" href="#">
                   <div class="contentBox">
@@ -1032,13 +1040,14 @@
                       <h2>02</h2>
                     </div>
                     <div class="textBox">
-                      <p>Opening of new road projects spanning 2400 km</p>
+                      <p>افتتاح مشاريع طرق جديدة بطول 2400 كم مسار</p>
                     </div>
                   </div>
 
 
                 </div>
               </div>
+
               <div class="achItem">
                 <div class="inner_" href="#">
                   <div class="contentBox">
@@ -1046,13 +1055,14 @@
                       <h2>03</h2>
                     </div>
                     <div class="textBox">
-                      <p>Installation of over 37,000 warning signs</p>
+                      <p>تركيب أكثر من 37 ألف لوحة تحذيرية.</p>
                     </div>
                   </div>
 
 
                 </div>
               </div>
+
               <div class="achItem">
                 <div class="inner_" href="#">
                   <div class="contentBox">
@@ -1060,7 +1070,7 @@
                       <h2>04</h2>
                     </div>
                     <div class="textBox">
-                      <p>Removal of sand exceeding 11 million cubic meters</p>
+                      <p>إزالة الكثبان الرملية بأكثر من 11 مليون متر مكعب.</p>
                     </div>
                   </div>
 
@@ -1078,9 +1088,10 @@
                       <h2>05</h2>
                     </div>
                     <div class="textBox">
-                      <p>Achieving a project implementation commitment rate of approximately 93%</p>
+                      <p>إزالة الكثبان الرملية بأكثر من 11 مليون متر مكعب.</p>
                     </div>
                   </div>
+
                 </div>
               </div>
 
@@ -1091,8 +1102,7 @@
                       <h2>06</h2>
                     </div>
                     <div class="textBox">
-                      <p>Attaining excellence certification in project management for the transition in road operation
-                        and maintenance</p>
+                      <p>اعتماد استراتيجية قِطاع الطرق.</p>
                     </div>
                   </div>
 
@@ -1107,7 +1117,7 @@
                       <h2>07</h2>
                     </div>
                     <div class="textBox">
-                      <p>Obtaining international ISO certification for road survey and assessment activities</p>
+                      <p>اعتماد استراتيجية قِطاع الطرق.</p>
                     </div>
                   </div>
 
@@ -1122,8 +1132,7 @@
                       <h2>08</h2>
                     </div>
                     <div class="textBox">
-                      <p>Conducting over 2,600 review, approval, and inspection processes by the Road Research Center in
-                        2023</p>
+                      <p>اعتماد استراتيجية قِطاع الطرق.</p>
                     </div>
                   </div>
 
@@ -1142,7 +1151,7 @@
                       <h2>09</h2>
                     </div>
                     <div class="textBox">
-                      <p>Handling over 129,000 calls to the 938 call center</p>
+                      <p>التعامل مع أكثر من 129.000 مكالمة لمركز الاتصال 938</p>
                     </div>
                   </div>
                 </div>
@@ -1155,7 +1164,7 @@
                       <h2>10</h2>
                     </div>
                     <div class="textBox">
-                      <p>Achieving a beneficiary satisfaction rate of 87%</p>
+                      <p>تحقيق نسبة رضا المستفيدين 87%</p>
                     </div>
                   </div>
 
@@ -1170,7 +1179,7 @@
                       <h2>11</h2>
                     </div>
                     <div class="textBox">
-                      <p>Inauguration of the IRAP regional office in Riyadh</p>
+                      <p>افتتاح المكتب الإقليمي لـ IRAP في الرياض</p>
                     </div>
                   </div>
 
@@ -1185,8 +1194,7 @@
                       <h2>12</h2>
                     </div>
                     <div class="textBox">
-                      <p>Launching a campaign to survey the road network and addressing over 14,000 observations
-                        comprehensively</p>
+                      <p>إطلاق حملة مسح شبكة الطرق ومعالجة أكثر من 14 ألف ملاحظة بشكل شامل</p>
                     </div>
                   </div>
 
@@ -1222,17 +1230,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <footer class="footer" id="footer">
   <div class="container">
 
@@ -1245,12 +1242,12 @@
 
       <div class="service__logo">
         <div class="textBox">
-          <p>Beneficiary Services Centre</p>
+          <p>مركز خدمات المستفيدين</p>
 
         </div>
 
         <div class="logoBox">
-          <a href="#" class="appLogo">
+          <a href="https://play.google.com/store/apps/details?id=sa.gov_mot.saudiRoads.Application&hl=en&gl=US&pli=1" class="appLogo">
             <svg width="130" height="46" viewBox="0 0 130 46" fill="none" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink">
               <rect width="130" height="45.5" fill="url(#pattern1)" />
@@ -1265,7 +1262,7 @@
 
 
           </a>
-          <a href="#" class="appLogo">
+          <a href="https://apps.apple.com/sa/app/938/id1546536891" class="appLogo">
             <svg width="130" height="46" viewBox="0 0 130 46" fill="none" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink">
               <rect width="130" height="45.5" fill="url(#pattern0)" />
@@ -1283,7 +1280,7 @@
 
       <div class="social__logo">
         <div class="textBox">
-          <p>Follow us</p>
+          <p>تابعنا</p>
         </div>
 
         <div class="logoBox">
@@ -1324,7 +1321,7 @@
       <div class="copy">
         <div class="textBox">
           <span>&copy</span>
-          <p>Road General Authority 2024</p>
+          <p>2024 الهيئة العامة للطرق</p>
         </div>
       </div>
     </div>
